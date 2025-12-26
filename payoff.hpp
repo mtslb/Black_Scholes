@@ -6,19 +6,19 @@
 
 class option{
     protected:
-    int K_;
-    int L_;
-    int r_;
+    double K_;
+    double L_;
+    double r_;
 
     public:
-    option(int K, int L, int r): K_(K), L_(L), r_(r) {}
+    option(double K, double L, double r): K_(K), L_(L), r_(r) {}
     virtual double payoff(double S) const = 0;
 };
 
 class call : public option{
 
     public:
-    call(int K, int L, int r): option(K, L, r) {}
+    call(double K, double L, double r): option(K, L, r) {}
     double payoff(double S) const override {
         if (S>L_){
             throw std::out_of_range("S is out of range");
@@ -29,7 +29,7 @@ class call : public option{
 
 class put : public option{
     public:
-    put(int K, int L, int r): option(K, L, r) {}
+    put(double K, double L, double r): option(K, L, r) {}
     double payoff(double S) const override {
         if (S>L_){
             throw std::out_of_range("S is out of range");
