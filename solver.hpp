@@ -7,38 +7,33 @@
 
 class solver {
     private:
-        EDP& edp_;  // Référence vers l'objet EDP à résoudre
-        int M_;     // Nombre de pas de temps
-        int N_;     // Nombre de pas d'espace
         double dt_; // Pas de temps
         double dS_; // Pas d'espace
         std::vector<double>& t_; // Valeurs de temps t pour lesquelles on calcule la solution
         std::vector<double>& S_; // Valeurs de l'actif S pour lesquelles on calcule la solution
 
     public:
-        solver(EDP& edp, int M, int N, std::vector<double>& t, std::vector<double>& S)
-            : edp_(edp), M_(M), N_(N), t_(t), S_(S) {
-            dt_ = edp_.T() / M_;
-            dS_ = (edp_.S_max() - edp_.S_min()) / N_;
+        solver(int L, int N, int T, int M, std::vector<double>& t, std::vector<double>& S)
+            : t_(t), S_(S) {
+            dt_ = T / M;
+            dS_ = L / N;
         }
-
-        virtual ~solver() = default;
 
         virtual void solve() = 0;
     };
 
 class differences_finies_implicites : public solver {
     public:
-        differences_finies_implicites(EDP& edp, int M, int N, std::vector<double>& t, std::vector<double>& S)
-            : solver(edp, M, N, t, S) {}
+        differences_finies_implicites(int L, int N, int T, int M, std::vector<double>& t, std::vector<double>& S)
+            : solver(L, N, T, M, t, S) {}
 
         void solve() override;
     };
 
 class cranck_nicolson : public solver {
     public:
-        cranck_nicolson(EDP& edp, int M, int N, std::vector<double>& t, std::vector<double>& S)
-            : solver(edp, M, N, t, S) {}
+        cranck_nicolson(int L, int N, int T, int M, std::vector<double>& t, std::vector<double>& S)
+            : solver(L, N, T, M, t, S) {}
 
         void solve() override;
     };

@@ -73,7 +73,7 @@ SDL_Renderer* sdl::get_renderer() const {
     return renderer;
 }
 
-void draw_curve(SDL_Renderer* renderer, const std::vector<float>& values, int width, int height) {
+void sdl::draw_curve(SDL_Renderer* renderer, const std::vector<float>& values, int width, int height) {
     if (values.empty()) return;
 
     // Effacer le renderer (fond noir)
