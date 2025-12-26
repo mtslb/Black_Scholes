@@ -1,5 +1,8 @@
-#ifndef
+#ifndef SOLVER_HPP
 #define SOLVER_HPP
+
+#include <vector>
+#include "edp.hpp"
 
 
 class solver {
@@ -24,9 +27,9 @@ class solver {
         virtual void solve() = 0;
     };
 
-class elements_finis : public solver {
+class differences_finies_implicites : public solver {
     public:
-        elements_finis(EDP& edp, int M, int N, std::vector<double>& t, std::vector<double>& S)
+        differences_finies_implicites(EDP& edp, int M, int N, std::vector<double>& t, std::vector<double>& S)
             : solver(edp, M, N, t, S) {}
 
         void solve() override;
