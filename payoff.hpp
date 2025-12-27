@@ -2,6 +2,7 @@
 #define PAYOFF_HPP
 
 #include<algorithm>
+#include<cmath>
 #include<stdexcept>
 
 // Classe abstraite Option
