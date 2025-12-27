@@ -4,40 +4,49 @@
 #include<algorithm>
 #include<stdexcept>
 
-class option{
+// Classe abstraite Option
+class Option{
     protected:
-    double K_;
-    double L_;
-    double r_;
+        double K_;
+        double L_;
+        double r_;
 
     public:
-    option(double K, double L, double r): K_(K), L_(L), r_(r) {}
-    virtual double payoff(double S) const = 0;
+        Option(double K, double L, double r, double T); // constructeur
+        virtual ~Option(); // destructeur virtuel
+        virtual double payoff(double S) const = 0; // méthode virtuelle pure (=0)
+        virtual double boundary_condition_low(double t) const = 0; // méthode virtuelle pure (=0)
+        virtual double boundary_condition_high(double t) const = 0; // méthode virtuelle pure (=0)
 };
 
-class call : public option{
-
+// Classe pour Call
+class Call : public Option{ // Classe dérivée de Option
     public:
-    call(double K, double L, double r): option(K, L, r) {}
-    double payoff(double S) const override {
-        if (S>L_){
-            throw std::out_of_range("S is out of range");
-        }
-        return std::max(S - K_, 0.0);
-    }
+        Call(double K, double L, double r, double T); //Option(K, L, r, T) {}
+        double payoff(double S) const override;
+        // {
+        //     if (S>L_){
+        //         throw std::out_of_range("S is out of range");
+        //     }
+        //     return std::max(S - K_, 0.0);
+        // }
+        double boundary_condition_low(double t) const override;     //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Call
+        double boundary_condition_high(double t) const override;    //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Call
 };
 
-class put : public option{
+// Classe pour Put
+class Put : public Option{  // Classe dérivée de Option
     public:
-    put(double K, double L, double r): option(K, L, r) {}
-    double payoff(double S) const override {
-        if (S>L_){
-            throw std::out_of_range("S is out of range");
-        }
-        return std::max(K_ - S, 0.0);
-    }
+        Put(double K, double L, double r, double T); //Option(K, L, r, T) {}
+        double payoff(double S) const override; 
+        // {
+        //     if (S>L_){
+        //         throw std::out_of_range("S is out of range");
+        //     }
+        //     return std::max(K_ - S, 0.0);
+        // }
+        double boundary_condition_low(double t) const override;     //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Put
+        double boundary_condition_high(double t) const override;    //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Put
 };
-
-
 
 #endif // PAYOFF_HPP
