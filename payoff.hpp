@@ -10,6 +10,7 @@ class Option{
         double K_;
         double L_;
         double r_;
+        double T_;
 
     public:
         Option(double K, double L, double r, double T); // constructeur
