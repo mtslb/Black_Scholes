@@ -23,8 +23,8 @@ class Solver {
         //     dS_ = L / N;
         // }
         virtual void solve() = 0;
+        ~Solver() = default;
     };
-
 
 
 //classe Differences finies implicites
@@ -34,7 +34,6 @@ class Differences_finies_implicites : public Solver { //heritage de la classe So
             // : Solver(edp, N, M) {}
         void solve() override;
     };
-
 
 
 
