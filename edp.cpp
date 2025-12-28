@@ -1,23 +1,32 @@
-#ifndef     
-#define EDP_HPP
+#include "edp.hpp"
 
-class EDP {
-    protected:
-        double sigma_; // Volatilité de l'actif sous-jacent
-        double r_;     // Taux d'intérêt sans risque
-        int T_;     // Temps terminal
-        int L_;     // Valeur maximale de l'actif sous-jacent
-    public:
-        virtual ~EDP() = default;
+
+//Implémentation des méthodes de la classe EDP
+EDP::EDP(Option* option, double sigma, double r, double T, double L)
+    : option_(option), sigma_(sigma), r_(r), T_(T), L_(L) {} //constructeur
+
+//Getters
+Option* EDP::getOption() const {
+    return option_;
+}
+double EDP::getSigma() const {
+    return sigma_;
+}
+double EDP::getR() const {
+    return r_;
+}
+double EDP::getT() const {
+    return T_;
+}   
+double EDP::getL() const {
+    return L_;
 }
 
 
-class EDP_complete : public EDP{
+//Implémentation des méthodes de la classe EDP_complete
+EDP_complete::EDP_complete(Option* option, double sigma, double r, double T, double L)
+    : EDP(option, sigma, r, T, L) {}     //appel du constructeur de la classe mère EDP
 
-}
-
-class EDP_reduite: public EDP{
-
-    
-}
-#endif // EDP_HPP
+//Implémentation des méthodes de la classe EDP_reduite
+EDP_reduite::EDP_reduite(Option* option, double sigma, double r, double T, double L)
+    : EDP(option, sigma, r, T, L) {}    //appel du constructeur de la classe mère EDP
