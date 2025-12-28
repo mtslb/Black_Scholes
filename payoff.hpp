@@ -26,12 +26,6 @@ class Call : public Option{ // Classe dérivée de Option
     public:
         Call(double K, double L, double r, double T); //Option(K, L, r, T) {}
         double payoff(double S) const override;
-        // {
-        //     if (S>L_){
-        //         throw std::out_of_range("S is out of range");
-        //     }
-        //     return std::max(S - K_, 0.0);
-        // }
         double boundary_condition_low(double t) const override;     //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Call
         double boundary_condition_high(double t) const override;    //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Call
 };
@@ -41,12 +35,6 @@ class Put : public Option{  // Classe dérivée de Option
     public:
         Put(double K, double L, double r, double T); //Option(K, L, r, T) {}
         double payoff(double S) const override; 
-        // {
-        //     if (S>L_){
-        //         throw std::out_of_range("S is out of range");
-        //     }
-        //     return std::max(K_ - S, 0.0);
-        // }
         double boundary_condition_low(double t) const override;     //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Put
         double boundary_condition_high(double t) const override;    //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Put
 };
