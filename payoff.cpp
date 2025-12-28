@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 
+//Implémentation des méthodes de la classe Option
 
 Option::Option(double K, double L, double r, double T) //Constructeur de la classe Option
     : K_(K), L_(L), r_(r), T_(T) {}
