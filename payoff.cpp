@@ -10,6 +10,8 @@ Option::Option(double K, double L, double r, double T) //Constructeur de la clas
 
 Option::~Option() {} //Destructeur virtuel de la classe Option
 
+double Option::get_strike_price() const {return K_;}
+
 
 
 //Implémentation des méthodes de la classe Call

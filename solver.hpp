@@ -28,9 +28,9 @@ class Solver {
 
 
 //classe Differences finies implicites
-class Differences_finies_implicites : public Solver { //heritage de la classe Solver
+class solver_edp_reduite : public Solver { //heritage de la classe Solver
     public:
-        Differences_finies_implicites(EDP& edp, int N, int M);
+        solver_edp_reduite(EDP& edp, int N, int M);
             // : Solver(edp, N, M) {}
         void solve() override;
     };
@@ -38,9 +38,9 @@ class Differences_finies_implicites : public Solver { //heritage de la classe So
 
 
 //classe Cranck-Nicolson 
-class Cranck_nicolson : public Solver { //heritage de la classe Solver
+class solver_edp_complete : public Solver { //heritage de la classe Solver
     public:
-        Cranck_nicolson(EDP& edp, int N, int M);
+        solver_edp_complete(EDP& edp, int N, int M);
             // : Solver(edp, N, M) {}
         void solve() override;
     };

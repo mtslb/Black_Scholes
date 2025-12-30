@@ -19,6 +19,7 @@ class Option{
         virtual double payoff(double S) const = 0; // méthode virtuelle pure (=0)
         virtual double boundary_condition_low(double t) const = 0; // méthode virtuelle pure (=0)
         virtual double boundary_condition_high(double t) const = 0; // méthode virtuelle pure (=0)
+        double get_strike_price() const; // Getter pour K_
 };
 
 // Classe pour Call
