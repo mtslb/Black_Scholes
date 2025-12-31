@@ -1,105 +1,92 @@
 /**
  * @file main.cpp
- * @brief Programme principal de résolution des EDP de Black-Scholes.
- * * Ce fichier orchestre la résolution par Crank-Nicolson et schéma implicite,
- * puis affiche les courbes de prix et d'erreur via la classe Sdl.
+ * @brief Résolution des EDP de Black-Scholes avec affichage stabilisé.
  */
 
 #include <iostream>
 #include <vector>
 #include <cmath>
-#include <string>
+#include <algorithm> // Pour std::min
 #include "payoff.hpp"
 #include "solver.hpp"
 #include "sdl.hpp"
 
 /**
- * @brief Calcule la différence absolue entre deux vecteurs de résultats.
- * @param v1 Premier vecteur (Crank-Nicolson).
- * @param v2 Second vecteur (Schéma implicite).
- * @return std::vector<double> Vecteur de l'erreur absolue.
+ * @brief Calcule l'écart absolu avec un facteur d'échelle raisonnable.
  */
-std::vector<double> get_error(const std::vector<double>& v1, const std::vector<double>& v2) {
+std::vector<double> compute_divergence(const std::vector<double>& v1, const std::vector<double>& v2) {
     std::vector<double> res(v1.size());
     for (size_t i = 0; i < v1.size(); ++i) {
-        res[i] = std::abs(v1[i] - v2[i]) * 100.0; // Facteur 100 pour la visibilité de l'erreur
+        // On réduit le facteur à 100.0 pour éviter que ça ne sorte de l'écran
+        // L'erreur est souvent forte là où S est grand ou proche de K.
+        res[i] = std::abs(v1[i] - v2[i]) * 100.0; 
     }
     return res;
 }
 
-/**
- * @brief Point d'entrée du programme.
- * @return int Code de sortie.
- */
 int main() {
-    // --- Configuration des paramètres (Source [cite: 72-76]) ---
+    // Valeurs numériques imposées
     const double T = 1.0;
     const double r = 0.1;
     const double sigma = 0.1;
     const double K = 100.0;
     const double L = 300.0;
-    
-    // Discrétisation (Source )
     const int M = 1000;
     const int N = 1000;
 
-    // --- Moteurs de calcul ---
     BSSolver engine(r, sigma, T, L, K);
-    CallPayoff call_pay(K);
+
+    // --- CALCULS ---
     PutPayoff put_pay(K);
+    std::vector<double> p_comp = engine.solve_complete(put_pay, M, N);
+    std::vector<double> p_red  = engine.solve_reduced(put_pay, M, N);
+    std::vector<double> p_err  = compute_divergence(p_comp, p_red);
 
-    // --- Calcul des solutions C(0, s) ---
-    // Pour le Call
-    std::vector<double> call_comp = engine.solve_complete(call_pay, M, N);
-    std::vector<double> call_red  = engine.solve_reduced(call_pay, M, N);
-    std::vector<double> call_err  = get_error(call_comp, call_red);
+    CallPayoff call_pay(K);
+    std::vector<double> c_comp = engine.solve_complete(call_pay, M, N);
+    std::vector<double> c_red  = engine.solve_reduced(call_pay, M, N);
+    std::vector<double> c_err  = compute_divergence(c_comp, c_red);
 
-    // Pour le Put
-    std::vector<double> put_comp = engine.solve_complete(put_pay, M, N);
-    std::vector<double> put_red  = engine.solve_reduced(put_pay, M, N);
-    std::vector<double> put_err  = get_error(put_comp, put_red);
+    // --- AFFICHAGE SDL ---
+    // Augmentation de la taille pour voir l'ensemble du domaine L=300
+    const int W = 1200; 
+    const int H = 800;
 
-    // --- Initialisation des fenêtres SDL (Source [cite: 87, 88]) ---
-    Sdl sdl_call("Call: Crank-Nicolson (Vert) vs Implicite (Bleu)", 800, 600);
-    Sdl sdl_err_call("Erreur Call (x100)", 800, 600);
-    
-    Sdl sdl_put("Put: Crank-Nicolson (Vert) vs Implicite (Bleu)", 800, 600);
-    Sdl sdl_err_put("Erreur Put (x100)", 800, 600);
+    Sdl win_put("Put: CN (Vert) vs Implicite (Bleu)", W, H);
+    Sdl win_err_p("Erreur Put (x100)", W, H);
+    Sdl win_call("Call: CN (Vert) vs Implicite (Bleu)", W, H);
+    Sdl win_err_c("Erreur Call (x100)", W, H);
 
-    // Couleurs SDL_Color
     SDL_Color green = {0, 255, 0, 255};
     SDL_Color blue  = {0, 0, 255, 255};
     SDL_Color red   = {255, 0, 0, 255};
 
-    // --- Boucle de rendu ---
-    bool is_running = true;
-    SDL_Event event;
+    bool is_active = true;
+    SDL_Event ev;
 
-    while (is_running) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) is_running = false;
+    while (is_active) {
+        while (SDL_PollEvent(&ev)) {
+            if (ev.type == SDL_QUIT) is_active = false;
         }
 
-        // Affichage CALL
-        sdl_call.clear();
-        sdl_call.plot(call_comp, green); // Solution EDP complète
-        sdl_call.plot(call_red, blue);   // Solution EDP réduite superposée
-        sdl_call.present();
+        // Rendu des fenêtres
+        win_put.clear();
+        win_put.plot(p_comp, green); win_put.plot(p_red, blue);
+        win_put.present();
 
-        sdl_err_call.clear();
-        sdl_err_call.plot(call_err, red); // Fenêtre d'erreur
-        sdl_err_call.present();
+        win_err_p.clear();
+        win_err_p.plot(p_err, red);
+        win_err_p.present();
 
-        // Affichage PUT
-        sdl_put.clear();
-        sdl_put.plot(put_comp, green);
-        sdl_put.plot(put_red, blue);
-        sdl_put.present();
+        win_call.clear();
+        win_call.plot(c_comp, green); win_call.plot(c_red, blue);
+        win_call.present();
 
-        sdl_err_put.clear();
-        sdl_err_put.plot(put_err, red);
-        sdl_err_put.present();
+        win_err_c.clear();
+        win_err_c.plot(c_err, red);
+        win_err_c.present();
     }
 
+    SDL_Quit();
     return 0;
 }

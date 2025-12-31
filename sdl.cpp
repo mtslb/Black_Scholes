@@ -31,8 +31,11 @@ void Sdl::clear() {
 void Sdl::plot(const std::vector<double>& data, SDL_Color color) {
     SDL_SetRenderDrawColor(ren, color.r, color.g, color.b, 255);
     for(size_t i = 0; i < data.size() - 1; ++i) {
-        // Mise à l'échelle simple : 1 pixel par unité de S, hauteur 600
-        SDL_RenderDrawLine(ren, (int)i, 550 - (int)data[i], (int)i+1, 550 - (int)data[i+1]);
+        // On dessine de gauche à droite (i)
+        // L'axe Y est inversé : H - valeur. On ajoute un offset de 50 pixels en bas.
+        int y1 = 750 - (int)(data[i] * 2.0); // Coefficient 2.0 pour étirer verticalement
+        int y2 = 750 - (int)(data[i+1] * 2.0);
+        SDL_RenderDrawLine(ren, (int)i, y1, (int)i+1, y2);
     }
 }
 
