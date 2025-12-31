@@ -14,16 +14,12 @@ class Solver {
         int M_; // Nombre de points en temps
         std::vector<double> t_; // Valeurs de temps t pour lesquelles on calcule la solution
         std::vector<double> S_; // Valeurs de l'actif S pour lesquelles on calcule la solution
-        std::vector<std::vector<double>> V_; // Matrice des prix
+        std::vector< std::vector<double> > V_; // Matrice des prix
 
     public:
         Solver(EDP& edp, int N, int M);
-        //     : t_(t), S_(S) {
-        //     dt_ = T / M;
-        //     dS_ = L / N;
-        // }
-        virtual void solve() = 0;
-        ~Solver() = default;
+        std::vector<double> algoThomas(const std::vector<double>& x, const std::vector<double>& y, const std::vector<double>& z, const std::vector<double>& b);
+        virtual std::vector<double> solve() = 0;
     };
 
 
@@ -31,8 +27,8 @@ class Solver {
 class solver_edp_reduite : public Solver { //heritage de la classe Solver
     public:
         solver_edp_reduite(EDP& edp, int N, int M);
-            // : Solver(edp, N, M) {}
-        void solve() override;
+        void reverse_variables();
+        std::vector<double> solve() override;
     };
 
 
@@ -42,7 +38,8 @@ class solver_edp_complete : public Solver { //heritage de la classe Solver
     public:
         solver_edp_complete(EDP& edp, int N, int M);
             // : Solver(edp, N, M) {}
-        void solve() override;
+        std::vector<double> solve() override;
+
     };
 
 #endif // SOLVER_HPP

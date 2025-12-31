@@ -15,15 +15,25 @@ int main() {
     int M=1000;
     int N=1000;
 
+    Put put_option (K,L,r,T);
+    Call call_option (K,L,r,T);
 
-    put_option Put(K,L,r,T);
-    call_option Call(K,L,r,T);
+    EDP::EDP EDP_reduite_PUT(put_option, sigma, r, T, L);
+    solver_edp_reduite::solver_edp_reduite_PUT(EDP_reduite_PUT, N, M);
+    solver_edp_complete::solver_edp_complete_PUT(EDP_complete_PUT, N, M);
 
-    EDP_complete_PUT edp(put_option, sigma, r, T, L);
-    EDP_reduite_PUT edp_red(put_option, sigma, r, T, L);
+    sdl::init();
+    sdl::run();
+    EDP EDP_reduite_CALL(call_option, sigma, r, T, L);
+    solver_edp_reduite::solver_edp_reduite_CALL(EDP_reduite_CALL, N, M);
+    solver_edp_complete::solver_edp_complete_CALL(EDP_complete_CALL, N, M);
 
-    EDP_complete_CALL edp_call(call_option, sigma, r, T, L);
-    EDP_reduite_CALL edp_red_call(call_option, sigma, r, T, L);
+
+
+
+
+    sdl::exit();
+
 
 
 

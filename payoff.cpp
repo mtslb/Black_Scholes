@@ -25,7 +25,7 @@ double Call::payoff(double S) const { //Implémentation de la méthode payoff po
     return std::max(S - K_, 0.0);
 }
 double Call::boundary_condition_low(double t) const { //Implémentation de la condition à la limite S=0 pour Call
-    return 0.0;
+    return t*0.0;
 }
 double Call::boundary_condition_high(double t) const { //Implémentation de la condition à la limite S=L pour Call
     return L_ - K_ * std::exp(-r_ * (t -T_));
@@ -47,5 +47,5 @@ double Put::boundary_condition_low(double t) const { //Implémentation de la con
     return K_ * std::exp(-r_ *(T_ - t)); 
 }
 double Put::boundary_condition_high(double t) const { //Implémentation de la condition à la limite S=L pour Put
-    return 0.0;
+    return t*0.0;
 }
