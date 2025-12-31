@@ -1,0 +1,39 @@
+\doxysection{payoff.\+hpp}
+\hypertarget{payoff_8hpp_source}{}\label{payoff_8hpp_source}\mbox{\hyperlink{payoff_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ PAYOFF\_HPP}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ PAYOFF\_HPP}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_payoff}{Payoff}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_payoff_aba04c65c340a8aac6027ed7b6e9d193a}{\string~Payoff}}()\ \{\}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_payoff_a34e8cc32d3b57f45f6eb72cf77f6ff06}{operator()}}(\textcolor{keywordtype}{double}\ s)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_payoff_a430cc907243e4e655c73f04321437f1c}{get\_boundary\_zero}}(\textcolor{keywordtype}{double}\ t,\ \textcolor{keywordtype}{double}\ T,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ K)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_payoff_a7c16f2c5a66912b6254e5e17fb8f7f05}{get\_boundary\_L}}(\textcolor{keywordtype}{double}\ t,\ \textcolor{keywordtype}{double}\ T,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ K,\ \textcolor{keywordtype}{double}\ L)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_call_payoff_a5febaab90dff1bf068a783b03a20fcda}{CallPayoff}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_payoff}{Payoff}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{double}\ K;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_call_payoff_a5febaab90dff1bf068a783b03a20fcda}{CallPayoff}}(\textcolor{keywordtype}{double}\ strike)\ :\ K(strike)\ \{\}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_call_payoff_a29e438017962334931d09a517fc71b2e}{operator()}}(\textcolor{keywordtype}{double}\ s)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_call_payoff_a4f24da0f97a1e9a23de0af8ad4c7d4cb}{get\_boundary\_zero}}(\textcolor{keywordtype}{double}\ t,\ \textcolor{keywordtype}{double}\ T,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ K)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_call_payoff_a0bbfe847906ac6853fe5d6debf246231}{get\_boundary\_L}}(\textcolor{keywordtype}{double}\ t,\ \textcolor{keywordtype}{double}\ T,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ K,\ \textcolor{keywordtype}{double}\ L)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_put_payoff_ae15a8ea8eadb0df26fa35498f1d14300}{PutPayoff}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_payoff}{Payoff}}\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{double}\ K;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_put_payoff_ae15a8ea8eadb0df26fa35498f1d14300}{PutPayoff}}(\textcolor{keywordtype}{double}\ strike)\ :\ K(strike)\ \{\}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_put_payoff_add1b0c1fc63ca9b0500941205f33161f}{operator()}}(\textcolor{keywordtype}{double}\ s)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_put_payoff_a97acbbfbfcdd722d0613492242cbde65}{get\_boundary\_zero}}(\textcolor{keywordtype}{double}\ t,\ \textcolor{keywordtype}{double}\ T,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ K)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_put_payoff_a3a5cec258a5493c888db5d4c92f05a7a}{get\_boundary\_L}}(\textcolor{keywordtype}{double}\ t,\ \textcolor{keywordtype}{double}\ T,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ K,\ \textcolor{keywordtype}{double}\ L)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PAYOFF\_HPP}}
+
+\end{DoxyCode}

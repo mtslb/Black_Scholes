@@ -1,6 +1,6 @@
 PROJECT_NAME           = "Black_Scholes"
 OUTPUT_DIRECTORY       = ./doc
-INPUT                  = ./src
+INPUT                  = .
 RECURSIVE              = YES
 GENERATE_HTML          = YES
 GENERATE_LATEX         = YES

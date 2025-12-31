@@ -1,45 +1,59 @@
+/**
+ * @file Solver.hpp
+ * @brief Moteur de résolution numérique pour l'équation de Black-Scholes.
+ */
 #ifndef SOLVER_HPP
 #define SOLVER_HPP
 
 #include <vector>
-#include "edp.hpp"
+#include "payoff.hpp"
 
+/**
+ * @class BSSolver
+ * @brief Gère la résolution de l'EDP complète et réduite.
+ */
+class BSSolver {
+public:
+    /**
+     * @brief Constructeur du solveur.
+     * @param r Taux d'intérêt.
+     * @param sigma Volatilité.
+     * @param T Maturité.
+     * @param L Borne spatiale supérieure.
+     * @param K Strike.
+     */
+    BSSolver(double r, double sigma, double T, double L, double K);
+    
+    /**
+     * @brief Résout l'EDP complète par le schéma de Crank-Nicolson.
+     * @param p Référence vers l'objet Payoff (Call ou Put).
+     * @param M Nombre de pas de temps.
+     * @param N Nombre de pas d'espace.
+     * @return Vecteur contenant les prix à t=0 pour chaque s.
+     */
+    std::vector<double> solve_complete(const Payoff& p, int M, int N);
+    
+    /**
+     * @brief Résout l'EDP réduite (équation 5 du sujet).
+     * @param p Référence vers le Payoff.
+     * @param M Nombre de pas de temps.
+     * @param N Nombre de pas d'espace.
+     * @return Vecteur des prix calculés.
+     */
+    std::vector<double> solve_reduced(const Payoff& p, int M, int N);
 
-class Solver {
-    protected: //pour que les classes filles y aient accès
-        double dt_; // Pas de temps
-        double dS_; // Pas d'espace
-        EDP&  edp_; // Référence vers l'EDP à résoudre
-        int N_; // Nombre de points en espace
-        int M_; // Nombre de points en temps
-        std::vector<double> t_; // Valeurs de temps t pour lesquelles on calcule la solution
-        std::vector<double> S_; // Valeurs de l'actif S pour lesquelles on calcule la solution
-        std::vector< std::vector<double> > V_; // Matrice des prix
+private:
+    double r, sigma, T, L, K;
 
-    public:
-        Solver(EDP& edp, int N, int M);
-        std::vector<double> algoThomas(const std::vector<double>& x, const std::vector<double>& y, const std::vector<double>& z, const std::vector<double>& b);
-        virtual std::vector<double> solve() = 0;
-    };
-
-
-//classe Differences finies implicites
-class solver_edp_reduite : public Solver { //heritage de la classe Solver
-    public:
-        solver_edp_reduite(EDP& edp, int N, int M);
-        void reverse_variables();
-        std::vector<double> solve() override;
-    };
-
-
-
-//classe Cranck-Nicolson 
-class solver_edp_complete : public Solver { //heritage de la classe Solver
-    public:
-        solver_edp_complete(EDP& edp, int N, int M);
-            // : Solver(edp, N, M) {}
-        std::vector<double> solve() override;
-
-    };
+    /**
+     * @brief Algorithme de Thomas pour résoudre un système tridiagonal.
+     * @param a Diagonale inférieure.
+     * @param b Diagonale principale (modifiée pendant le calcul).
+     * @param c Diagonale supérieure.
+     * @param rhs Second membre (modifié pour contenir la solution).
+     */
+    void tridiagonal_solve(const std::vector<double>& a, std::vector<double>& b, 
+                           const std::vector<double>& c, std::vector<double>& rhs);
+};
 
 #endif // SOLVER_HPP

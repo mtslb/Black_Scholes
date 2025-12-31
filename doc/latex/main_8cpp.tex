@@ -1,0 +1,67 @@
+\doxysection{main.\+cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{main.cpp@{main.cpp}}
+
+
+Programme principal de résolution des EDP de Black-\/\+Scholes.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}payoff.\+hpp"{}}\newline
+{\ttfamily \#include "{}solver.\+hpp"{}}\newline
+{\ttfamily \#include "{}sdl.\+hpp"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{main_8cpp_ad811d73dc12e9849b990fe7f5541869e}{get\+\_\+error}} (const std\+::vector$<$ double $>$ \&v1, const std\+::vector$<$ double $>$ \&v2)
+\begin{DoxyCompactList}\small\item\em Calcule la différence absolue entre deux vecteurs de résultats. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Point d\textquotesingle{}entrée du programme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Programme principal de résolution des EDP de Black-\/\+Scholes. 
+
+
+\begin{DoxyItemize}
+\item Ce fichier orchestre la résolution par Crank-\/\+Nicolson et schéma implicite, puis affiche les courbes de prix et d\textquotesingle{}erreur via la classe \doxylink{class_sdl}{Sdl}. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{main_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_ad811d73dc12e9849b990fe7f5541869e}\index{main.cpp@{main.cpp}!get\_error@{get\_error}}
+\index{get\_error@{get\_error}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_error()}{get\_error()}}
+{\footnotesize\ttfamily \label{main_8cpp_ad811d73dc12e9849b990fe7f5541869e} 
+std\+::vector$<$ double $>$ get\+\_\+error (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{v1}{, }\item[{const std\+::vector$<$ double $>$ \&}]{v2}{}\end{DoxyParamCaption})}
+
+
+
+Calcule la différence absolue entre deux vecteurs de résultats. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & Premier vecteur (Crank-\/\+Nicolson). \\
+\hline
+{\em v2} & Second vecteur (Schéma implicite). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$double$>$ Vecteur de l\textquotesingle{}erreur absolue. 
+\end{DoxyReturn}
+\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Point d\textquotesingle{}entrée du programme. 
+
+\begin{DoxyReturn}{Returns}
+int Code de sortie. 
+\end{DoxyReturn}

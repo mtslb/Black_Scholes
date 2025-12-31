@@ -1,51 +1,44 @@
-#ifndef SDL_CORE_HPP
-#define SDL_CORE_HPP
+/**
+ * @file Sdl.hpp
+ * @brief Encapsulation de la bibliothèque SDL2 pour l'affichage des courbes.
+ */
+#ifndef SDL_HPP
+#define SDL_HPP
 
-#include <string>
-#include <iostream>
 #include <SDL2/SDL.h>
+#include <vector>
 
-struct position {
-    int x;
-    int y;
-    // Constructeur pratique
-    position(int xpos = 100, int ypos = 100) : x(xpos), y(ypos) {}
+/**
+ * @class Sdl
+ * @brief Classe facilitant l'usage de SDL2 pour tracer des graphiques.
+ */
+class Sdl {
+    SDL_Window* win;
+    SDL_Renderer* ren;
+public:
+    /**
+     * @brief Initialise la fenêtre et le moteur de rendu.
+     * @param title Titre de la fenêtre.
+     * @param w Largeur.
+     * @param h Hauteur.
+     */
+    Sdl(const char* title, int w, int h);
 
-};
-typedef struct position pos;
+    /** @brief Destructeur libérant les ressources SDL2. */
+    ~Sdl();
 
-struct Size {
-    int width;
-    int height;
+    /**
+     * @brief Trace une courbe à partir d'un vecteur de données.
+     * @param data Valeurs à afficher.
+     * @param color Couleur SDL_Color pour le tracé.
+     */
+    void plot(const std::vector<double>& data, SDL_Color color);
 
-    // Constructeur pratique
-    Size(int w = 800, int h = 600) : width(w), height(h) {}
-};
-typedef struct Size size;
+    /** @brief Efface l'écran (fond noir). */
+    void clear();
 
-class sdl {
-    private:
-    
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    static bool is_running;
-
-    public:
-    
-    sdl(const std::string& title, const position& pos, const size& sz);
-    ~sdl();
-    
-    static void init();
-    static void exit();
-    static void run();
-    static void exit_run();
-    void show();
-    size get_size() const;
-    position get_position() const;
-    void move(const position& new_pos);
-    void resize(const size& new_size);
-    SDL_Renderer* get_renderer() const;  
-    void draw_curve(SDL_Renderer* renderer, const std::vector<float>& values);
+    /** @brief Met à jour l'affichage de la fenêtre. */
+    void present();
 };
 
-#endif // SDL_CORE_HPP
+#endif // SDL_HPP

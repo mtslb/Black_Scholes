@@ -1,104 +1,41 @@
+/**
+ * @file sdl.cpp
+ * @brief Implémentation de la classe graphique utilisant SDL2.
+ */
 #include "sdl.hpp"
+#include <iostream>
 
-sdl::sdl(const std::string& title, const position& pos, const size& sz) {
-    window = SDL_CreateWindow(title.c_str(), pos.x, pos.y, sz.width, sz.height, SDL_WINDOW_SHOWN);
-    if (window == nullptr)
-    {
-        std::cout << "Erreur lors de la création de la fenêtre : " << SDL_GetError() << std::endl;
+Sdl::Sdl(const char* title, int w, int h) {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        std::cerr << "Erreur SDL: " << SDL_GetError() << std::endl;
     }
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == nullptr)
-    {
-        std::cout << "Erreur lors de la création du renderer : " << SDL_GetError() << std::endl;
-    }
+    win = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_SHOWN);
+    ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
 }
 
-sdl::~sdl() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-}
-
-bool sdl::is_running = false;
-
-void sdl::init() {
-    SDL_Init(SDL_INIT_VIDEO);
-    is_running = true;
-}
-
-void sdl::exit() {
+Sdl::~Sdl() {
+    SDL_DestroyRenderer(ren);
+    SDL_DestroyWindow(win);
     SDL_Quit();
 }
 
-void sdl::exit_run() {
-    is_running = false;
+void Sdl::clear() {
+    SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
+    SDL_RenderClear(ren);
 }
 
-void sdl::run() {
-    SDL_Event e;
-    while (is_running) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                exit_run();
-            }
-        }
+/**
+ * @brief Affiche la courbe des prix. 
+ * L'axe Y est inversé pour correspondre au repère SDL (0 en haut).
+ */
+void Sdl::plot(const std::vector<double>& data, SDL_Color color) {
+    SDL_SetRenderDrawColor(ren, color.r, color.g, color.b, 255);
+    for(size_t i = 0; i < data.size() - 1; ++i) {
+        // Mise à l'échelle simple : 1 pixel par unité de S, hauteur 600
+        SDL_RenderDrawLine(ren, (int)i, 550 - (int)data[i], (int)i+1, 550 - (int)data[i+1]);
     }
 }
 
-void sdl::show() {
-    SDL_ShowWindow(window);
-}
-
-size sdl::get_size() const {
-    int w, h;
-    SDL_GetWindowSize(window, &w, &h);
-    return size(w, h);
-}
-
-position sdl::get_position() const {
-    int x, y;
-    SDL_GetWindowPosition(window, &x, &y);
-    return position(x, y);
-}
-
-void sdl::move(const position& new_pos) {
-    SDL_SetWindowPosition(window, new_pos.x, new_pos.y);
-}
-
-void sdl::resize(const size& new_size) {
-    SDL_SetWindowSize(window, new_size.width, new_size.height);
-}
-
-
-SDL_Renderer* sdl::get_renderer() const {
-    return renderer;
-}
-
-void sdl::draw_curve(SDL_Renderer* renderer, const std::vector<float>& values, int width, int height) {
-    if (values.empty()) return;
-
-    // Effacer le renderer (fond noir)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-
-    // Couleur de la courbe (rouge)
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-    // Échelle pour adapter la courbe à la fenêtre
-    float max_val = *std::max_element(values.begin(), values.end());
-    float min_val = *std::min_element(values.begin(), values.end());
-    float range = max_val - min_val;
-    if (range == 0) range = 1;
-
-    int n = values.size();
-    for (int i = 0; i < n - 1; ++i) {
-        int x1 = i * width / (n - 1);
-        int y1 = height - (int)((values[i] - min_val) / range * height);
-        int x2 = (i + 1) * width / (n - 1);
-        int y2 = height - (int)((values[i + 1] - min_val) / range * height);
-
-        SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
-    }
-
-    // Afficher le renderer
-    SDL_RenderPresent(renderer);
+void Sdl::present() {
+    SDL_RenderPresent(ren);
 }

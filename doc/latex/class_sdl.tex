@@ -1,0 +1,111 @@
+\doxysection{Sdl Class Reference}
+\hypertarget{class_sdl}{}\label{class_sdl}\index{Sdl@{Sdl}}
+
+
+Classe facilitant l\textquotesingle{}usage de SDL2 pour tracer des graphiques.  
+
+
+
+
+{\ttfamily \#include $<$sdl.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_sdl_a696473fcef1117ea50448b97fcbae46d}{Sdl}} (const char \texorpdfstring{$\ast$}{*}title, int w, int h)
+\begin{DoxyCompactList}\small\item\em Initialise la fenêtre et le moteur de rendu. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_sdl_a855bbadc37c0f1e224fb1c8c1ab579d4}{\texorpdfstring{$\sim$}{\string~}\+Sdl}} ()
+\begin{DoxyCompactList}\small\item\em Destructeur libérant les ressources SDL2. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sdl_a8f047dd17b272865dac601f2bfcb64b4}{plot}} (const std\+::vector$<$ double $>$ \&data, SDL\+\_\+\+Color color)
+\begin{DoxyCompactList}\small\item\em Trace une courbe à partir d\textquotesingle{}un vecteur de données. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sdl_a15f4a634f2ddc4e7d2ffb0d9b2ed523d}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Efface l\textquotesingle{}écran (fond noir). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sdl_ac68afff4d03b27359c2958534ef52a43}{present}} ()
+\begin{DoxyCompactList}\small\item\em Met à jour l\textquotesingle{}affichage de la fenêtre. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe facilitant l\textquotesingle{}usage de SDL2 pour tracer des graphiques. 
+
+\label{doc-constructors}
+\Hypertarget{class_sdl_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_sdl_a696473fcef1117ea50448b97fcbae46d}\index{Sdl@{Sdl}!Sdl@{Sdl}}
+\index{Sdl@{Sdl}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{Sdl()}{Sdl()}}
+{\footnotesize\ttfamily \label{class_sdl_a696473fcef1117ea50448b97fcbae46d} 
+Sdl\+::\+Sdl (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{title}{, }\item[{int}]{w}{, }\item[{int}]{h}{}\end{DoxyParamCaption})}
+
+
+
+Initialise la fenêtre et le moteur de rendu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em title} & Titre de la fenêtre. \\
+\hline
+{\em w} & Largeur. \\
+\hline
+{\em h} & Hauteur. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_sdl_a855bbadc37c0f1e224fb1c8c1ab579d4}\index{Sdl@{Sdl}!````~Sdl@{\texorpdfstring{$\sim$}{\string~}Sdl}}
+\index{````~Sdl@{\texorpdfstring{$\sim$}{\string~}Sdl}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Sdl()}{\string~Sdl()}}
+{\footnotesize\ttfamily \label{class_sdl_a855bbadc37c0f1e224fb1c8c1ab579d4} 
+Sdl\+::\texorpdfstring{$\sim$}{\string~}\+Sdl (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructeur libérant les ressources SDL2. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_sdl_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_sdl_a15f4a634f2ddc4e7d2ffb0d9b2ed523d}\index{Sdl@{Sdl}!clear@{clear}}
+\index{clear@{clear}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily \label{class_sdl_a15f4a634f2ddc4e7d2ffb0d9b2ed523d} 
+void Sdl\+::clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Efface l\textquotesingle{}écran (fond noir). 
+
+\Hypertarget{class_sdl_a8f047dd17b272865dac601f2bfcb64b4}\index{Sdl@{Sdl}!plot@{plot}}
+\index{plot@{plot}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{plot()}{plot()}}
+{\footnotesize\ttfamily \label{class_sdl_a8f047dd17b272865dac601f2bfcb64b4} 
+void Sdl\+::plot (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{data}{, }\item[{SDL\+\_\+\+Color}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Trace une courbe à partir d\textquotesingle{}un vecteur de données. 
+
+Affiche la courbe des prix. L\textquotesingle{}axe Y est inversé pour correspondre au repère SDL (0 en haut).
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Valeurs à afficher. \\
+\hline
+{\em color} & Couleur SDL\+\_\+\+Color pour le tracé. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_sdl_ac68afff4d03b27359c2958534ef52a43}\index{Sdl@{Sdl}!present@{present}}
+\index{present@{present}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{present()}{present()}}
+{\footnotesize\ttfamily \label{class_sdl_ac68afff4d03b27359c2958534ef52a43} 
+void Sdl\+::present (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Met à jour l\textquotesingle{}affichage de la fenêtre. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sdl_8hpp}{sdl.\+hpp}}\item 
+\mbox{\hyperlink{sdl_8cpp}{sdl.\+cpp}}\end{DoxyCompactItemize}

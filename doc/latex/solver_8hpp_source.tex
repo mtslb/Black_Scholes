@@ -1,0 +1,28 @@
+\doxysection{solver.\+hpp}
+\hypertarget{solver_8hpp_source}{}\label{solver_8hpp_source}\mbox{\hyperlink{solver_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ SOLVER\_HPP}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SOLVER\_HPP}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{payoff_8hpp}{payoff.hpp}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_b_s_solver_aaf4322576efcc80d92b6a9cb1ee66c86}{BSSolver}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_b_s_solver_aaf4322576efcc80d92b6a9cb1ee66c86}{BSSolver}}(\textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ sigma,\ \textcolor{keywordtype}{double}\ T,\ \textcolor{keywordtype}{double}\ L,\ \textcolor{keywordtype}{double}\ K);}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{class_b_s_solver_a09ef38c5799a623cbc977de5dce42646}{solve\_complete}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_payoff}{Payoff}}\&\ p,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N);}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{class_b_s_solver_a5f7e1116323dab0be82c26572312faf8}{solve\_reduced}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_payoff}{Payoff}}\&\ p,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{double}\ r,\ sigma,\ T,\ L,\ K;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ tridiagonal\_solve(\textcolor{keyword}{const}\ std::vector<double>\&\ a,\ std::vector<double>\&\ b,\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\&\ c,\ std::vector<double>\&\ rhs);}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SOLVER\_HPP}}
+
+\end{DoxyCode}

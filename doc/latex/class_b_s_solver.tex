@@ -1,0 +1,110 @@
+\doxysection{BSSolver Class Reference}
+\hypertarget{class_b_s_solver}{}\label{class_b_s_solver}\index{BSSolver@{BSSolver}}
+
+
+Gère la résolution de l\textquotesingle{}EDP complète et réduite.  
+
+
+
+
+{\ttfamily \#include $<$solver.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_s_solver_aaf4322576efcc80d92b6a9cb1ee66c86}{BSSolver}} (double r, double sigma, double T, double L, double K)
+\begin{DoxyCompactList}\small\item\em Constructeur du solveur. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_b_s_solver_a09ef38c5799a623cbc977de5dce42646}{solve\+\_\+complete}} (const \mbox{\hyperlink{class_payoff}{Payoff}} \&p, int M, int N)
+\begin{DoxyCompactList}\small\item\em Résout l\textquotesingle{}EDP complète par le schéma de Crank-\/\+Nicolson. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_b_s_solver_a5f7e1116323dab0be82c26572312faf8}{solve\+\_\+reduced}} (const \mbox{\hyperlink{class_payoff}{Payoff}} \&p, int M, int N)
+\begin{DoxyCompactList}\small\item\em Résout l\textquotesingle{}EDP réduite (équation 5 du sujet). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gère la résolution de l\textquotesingle{}EDP complète et réduite. 
+
+\label{doc-constructors}
+\Hypertarget{class_b_s_solver_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_b_s_solver_aaf4322576efcc80d92b6a9cb1ee66c86}\index{BSSolver@{BSSolver}!BSSolver@{BSSolver}}
+\index{BSSolver@{BSSolver}!BSSolver@{BSSolver}}
+\doxysubsubsection{\texorpdfstring{BSSolver()}{BSSolver()}}
+{\footnotesize\ttfamily \label{class_b_s_solver_aaf4322576efcc80d92b6a9cb1ee66c86} 
+BSSolver\+::\+BSSolver (\begin{DoxyParamCaption}\item[{double}]{r}{, }\item[{double}]{sigma}{, }\item[{double}]{T}{, }\item[{double}]{L}{, }\item[{double}]{K}{}\end{DoxyParamCaption})}
+
+
+
+Constructeur du solveur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & Taux d\textquotesingle{}intérêt. \\
+\hline
+{\em sigma} & Volatilité. \\
+\hline
+{\em T} & Maturité. \\
+\hline
+{\em L} & Borne spatiale supérieure. \\
+\hline
+{\em K} & Strike. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_b_s_solver_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_b_s_solver_a09ef38c5799a623cbc977de5dce42646}\index{BSSolver@{BSSolver}!solve\_complete@{solve\_complete}}
+\index{solve\_complete@{solve\_complete}!BSSolver@{BSSolver}}
+\doxysubsubsection{\texorpdfstring{solve\_complete()}{solve\_complete()}}
+{\footnotesize\ttfamily \label{class_b_s_solver_a09ef38c5799a623cbc977de5dce42646} 
+std\+::vector$<$ double $>$ BSSolver\+::solve\+\_\+complete (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_payoff}{Payoff}} \&}]{p}{, }\item[{int}]{M}{, }\item[{int}]{N}{}\end{DoxyParamCaption})}
+
+
+
+Résout l\textquotesingle{}EDP complète par le schéma de Crank-\/\+Nicolson. 
+
+Résolution de l\textquotesingle{}EDP complète (1) par Crank-\/\+Nicolson\mbox{[}cite\+: 79\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Référence vers l\textquotesingle{}objet \doxylink{class_payoff}{Payoff} (Call ou Put). \\
+\hline
+{\em M} & Nombre de pas de temps. \\
+\hline
+{\em N} & Nombre de pas d\textquotesingle{}espace. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vecteur contenant les prix à t=0 pour chaque s. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_solver_a5f7e1116323dab0be82c26572312faf8}\index{BSSolver@{BSSolver}!solve\_reduced@{solve\_reduced}}
+\index{solve\_reduced@{solve\_reduced}!BSSolver@{BSSolver}}
+\doxysubsubsection{\texorpdfstring{solve\_reduced()}{solve\_reduced()}}
+{\footnotesize\ttfamily \label{class_b_s_solver_a5f7e1116323dab0be82c26572312faf8} 
+std\+::vector$<$ double $>$ BSSolver\+::solve\+\_\+reduced (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_payoff}{Payoff}} \&}]{p}{, }\item[{int}]{M}{, }\item[{int}]{N}{}\end{DoxyParamCaption})}
+
+
+
+Résout l\textquotesingle{}EDP réduite (équation 5 du sujet). 
+
+Résolution de l\textquotesingle{}EDP réduite (5) par schéma implicite\mbox{[}cite\+: 83\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Référence vers le \doxylink{class_payoff}{Payoff}. \\
+\hline
+{\em M} & Nombre de pas de temps. \\
+\hline
+{\em N} & Nombre de pas d\textquotesingle{}espace. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vecteur des prix calculés. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{solver_8hpp}{solver.\+hpp}}\item 
+\mbox{\hyperlink{solver_8cpp}{solver.\+cpp}}\end{DoxyCompactItemize}
