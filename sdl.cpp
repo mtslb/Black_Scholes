@@ -1,104 +1,135 @@
-#include "sdl.hpp"
+/**
+ * @file sdl.cpp
+ * @brief Implémentation de la classe Sdl
+ */
 
-sdl::sdl(const std::string& title, const position& pos, const size& sz) {
-    window = SDL_CreateWindow(title.c_str(), pos.x, pos.y, sz.width, sz.height, SDL_WINDOW_SHOWN);
+#include "sdl.hpp" // Pour la déclaration de la classe Sdl
+ 
+/**
+ * @brief Initialise la fenêtre SDL
+ * @param title Titre de la fenêtre
+ * @param width Largeur de la fenêtre en pixels
+ * @param height Hauteur de la fenêtre en pixels
+ * @return Pointeur vers la fenêtre SDL créée, ou nullptr en cas d'erreur
+ */
+SDL_Window* init_window(const std::string& title, int width, int height)
+{
+    SDL_Window* window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+
     if (window == nullptr)
     {
         std::cout << "Erreur lors de la création de la fenêtre : " << SDL_GetError() << std::endl;
+        return nullptr;
     }
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == nullptr)
-    {
-        std::cout << "Erreur lors de la création du renderer : " << SDL_GetError() << std::endl;
+
+    return window;
+}
+
+/**
+ * @brief Initialise le renderer SDL
+ * @param window Fenêtre SDL à utiliser pour le renderer
+ * @return Pointeur vers le renderer SDL créé, ou nullptr en cas d'erreur
+ */
+SDL_Renderer* init_renderer(SDL_Window* window) {
+    // On remplace SDL_RENDERER_ACCELERATED par SDL_RENDERER_SOFTWARE
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+    
+    if (renderer == nullptr) {
+        std::cout << "Erreur Renderer : " << SDL_GetError() << std::endl;
+        return nullptr;
     }
-}
 
-sdl::~sdl() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-}
+    // On force un premier rendu noir pour "réveiller" la fenêtre
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
 
-bool sdl::is_running = false;
-
-void sdl::init() {
-    SDL_Init(SDL_INIT_VIDEO);
-    is_running = true;
-}
-
-void sdl::exit() {
-    SDL_Quit();
-}
-
-void sdl::exit_run() {
-    is_running = false;
-}
-
-void sdl::run() {
-    SDL_Event e;
-    while (is_running) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                exit_run();
-            }
-        }
-    }
-}
-
-void sdl::show() {
-    SDL_ShowWindow(window);
-}
-
-size sdl::get_size() const {
-    int w, h;
-    SDL_GetWindowSize(window, &w, &h);
-    return size(w, h);
-}
-
-position sdl::get_position() const {
-    int x, y;
-    SDL_GetWindowPosition(window, &x, &y);
-    return position(x, y);
-}
-
-void sdl::move(const position& new_pos) {
-    SDL_SetWindowPosition(window, new_pos.x, new_pos.y);
-}
-
-void sdl::resize(const size& new_size) {
-    SDL_SetWindowSize(window, new_size.width, new_size.height);
-}
-
-
-SDL_Renderer* sdl::get_renderer() const {
     return renderer;
 }
 
-void sdl::draw_curve(SDL_Renderer* renderer, const std::vector<float>& values, int width, int height) {
-    if (values.empty()) return;
-
-    // Effacer le renderer (fond noir)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-
-    // Couleur de la courbe (rouge)
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-    // Échelle pour adapter la courbe à la fenêtre
-    float max_val = *std::max_element(values.begin(), values.end());
-    float min_val = *std::min_element(values.begin(), values.end());
-    float range = max_val - min_val;
-    if (range == 0) range = 1;
-
-    int n = values.size();
-    for (int i = 0; i < n - 1; ++i) {
-        int x1 = i * width / (n - 1);
-        int y1 = height - (int)((values[i] - min_val) / range * height);
-        int x2 = (i + 1) * width / (n - 1);
-        int y2 = height - (int)((values[i + 1] - min_val) / range * height);
-
-        SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+/**
+* @brief Détruit le renderer et le window
+*/
+void cleanup(SDL_Renderer* renderer, SDL_Window* window)
+{
+    // Détruire le renderer
+    if (renderer != nullptr)
+    {
+        SDL_DestroyRenderer(renderer);
+        renderer = nullptr;
     }
 
-    // Afficher le renderer
-    SDL_RenderPresent(renderer);
+    // Détruire la fenêtre
+    if (window != nullptr)
+    {
+        SDL_DestroyWindow(window);
+        window = nullptr;
+    }
+}
+
+/**
+ * @brief Constructeur par défaut
+ */
+Sdl::Sdl() : renderer_(nullptr), window_(nullptr) {} // Initialisation de renderer_ et window_ avec nullptr
+
+/**
+ * @brief Constructeur
+ * @param renderer Renderer SDL à utiliser pour dessiner les courbes
+ * @param window Window SDL à utiliser pour dessiner les courbes
+ */
+Sdl::Sdl(SDL_Renderer* renderer, SDL_Window* window) : renderer_(renderer), window_(window) {}
+
+/**
+ * @brief Affiche une courbe dans la fenêtre
+ * @param x Vecteur correspondant aux abscisses
+ * @param y Vecteur correspondant aux odronnées
+ * @param color Couleur de la courbe, sous la forme d'un vecteur de trois entiers non signés de 8 bits
+ */
+void Sdl::draw_curve(const std::vector<double>& x, const std::vector<double>& y, const std::vector<Uint8>& color)
+{
+    if (x.empty() || y.empty()) return;
+
+    int window_width = 640;
+    int window_height = 480;
+    int margin = 30;
+
+    // --- TEST DE DESSIN FORCE ---
+    // On dessine une croix blanche pour vérifier que le renderer fonctionne
+    // SDL_SetRenderDrawColor(renderer_, 255, 255, 255, 255);
+    // SDL_RenderDrawLine(renderer_, 0, 0, window_width, window_height);
+    // SDL_RenderDrawLine(renderer_, window_width, 0, 0, window_height);
+
+    // Calcul des bornes
+    double xmin = *std::min_element(x.begin(), x.end());
+    double xmax = *std::max_element(x.begin(), x.end());
+    double ymin = *std::min_element(y.begin(), y.end());
+    double ymax = *std::max_element(y.begin(), y.end());
+
+    // Sécurité : évite la division par zéro si les prix sont tous identiques
+    double dy = ymax - ymin;
+    if (dy < 1e-6) dy = 1.0;
+    double dx = xmax - xmin;
+    if (dx < 1e-6) dx = 1.0;
+
+    const double xscale = static_cast<double>(window_width - 2 * margin) / dx;
+    const double yscale = static_cast<double>(window_height - 2 * margin) / dy;
+
+    // Dessin de la courbe
+    SDL_SetRenderDrawColor(renderer_, color[0], color[1], color[2], 255);
+    for (std::size_t i = 1; i < x.size(); i++)
+    {
+        int x1 = static_cast<int>(margin + (x[i - 1] - xmin) * xscale);
+        int y1 = static_cast<int>(window_height - margin - (y[i - 1] - ymin) * yscale);
+        int x2 = static_cast<int>(margin + (x[i] - xmin) * xscale);
+        int y2 = static_cast<int>(window_height - margin - (y[i] - ymin) * yscale);
+
+        SDL_RenderDrawLine(renderer_, x1, y1, x2, y2);
+    }
+}
+/**
+ * @brief Met à jour le renderer
+ */
+void Sdl::show()
+{
+    SDL_RenderPresent(renderer_);
 }

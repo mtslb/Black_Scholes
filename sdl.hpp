@@ -1,51 +1,78 @@
-#ifndef SDL_CORE_HPP
-#define SDL_CORE_HPP
+/**
+ * @file sdl.h
+ * @brief Déclaration de la classe Sdl
+ */
 
-#include <string>
-#include <iostream>
+#ifndef SDL_H
+#define SDL_H
+
 #include <SDL2/SDL.h>
+#include <vector> // Pour std::vector
+#include <string> // Pour std::string
+#include <algorithm>  // Pour std::max et std::min
+#include <iostream> // Pour std::cout et std::endl
+#include <limits> // Pour std::numeric_limits
 
-struct position {
-    int x;
-    int y;
-    // Constructeur pratique
-    position(int xpos = 100, int ypos = 100) : x(xpos), y(ypos) {}
+/**
+* @brief Initialise la fenêtre SDL
+* @param title Titre de la fenêtre
+* @param width Largeur de la fenêtre en pixels
+* @param height Hauteur de la fenêtre en pixels
+* @return Pointeur vers la fenêtre SDL créée, ou nullptr en cas d'erreur
+*/
+SDL_Window* init_window(const std::string& title, int width, int height);
 
-};
-typedef struct position pos;
+/**
+* @brief Initialise le renderer SDL
+* @param window Fenêtre SDL à utiliser pour le renderer
+* @return Pointeur vers le renderer SDL créé, ou nullptr en cas d'erreur
+*/
+SDL_Renderer* init_renderer(SDL_Window* window);
 
-struct Size {
-    int width;
-    int height;
+/**
+* @brief Détruit le renderer et le window
+*/
+void cleanup(SDL_Renderer* renderer, SDL_Window* window);
 
-    // Constructeur pratique
-    Size(int w = 800, int h = 600) : width(w), height(h) {}
-};
-typedef struct Size size;
-
-class sdl {
+/**
+ * @brief Classe permettant d'afficher des courbes dans une fenêtre SDL
+ */
+class Sdl
+{
     private:
-    
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    static bool is_running;
+        SDL_Renderer* renderer_; // Renderer SDL utilisé pour dessiner les courbes
+        SDL_Window* window_; // Window SDL utilisé pour dessiner les coubres
 
     public:
-    
-    sdl(const std::string& title, const position& pos, const size& sz);
-    ~sdl();
-    
-    static void init();
-    static void exit();
-    static void run();
-    static void exit_run();
-    void show();
-    size get_size() const;
-    position get_position() const;
-    void move(const position& new_pos);
-    void resize(const size& new_size);
-    SDL_Renderer* get_renderer() const;  
-    void draw_curve(SDL_Renderer* renderer, const std::vector<float>& values);
+        /**
+        * @brief Constructeur par défaut
+        */
+        Sdl();
+
+        /**
+        * @brief Constructeur
+        * @param renderer Renderer SDL à utiliser pour dessiner les courbes
+        * @param window Window SDL à utiliser pour dessiner les courbes
+        */
+        Sdl(SDL_Renderer* renderer, SDL_Window* window);
+
+        /**
+        * @brief Destructeur
+        */
+        ~Sdl() { cleanup(renderer_, window_); };
+
+        /**
+        * @brief Affiche une courbe dans la fenêtre
+        * @param x Vecteur correspondant aux abscisses
+        * @param y Vecteur correspondant aux odronnées
+        * @param color Couleur de la courbe, sous la forme d'un vecteur de trois entiers non signés de 8 bits
+        */
+        void draw_curve(const std::vector<double>& x, const std::vector<double>& y, const std::vector<Uint8>& color);
+
+        /**
+        * @brief Met à jour le renderer
+        */
+        void show();
 };
 
-#endif // SDL_CORE_HPP
+#endif // SDL_H
