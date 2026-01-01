@@ -44,6 +44,6 @@ double Put::payoff(double S) const { //Implémentation de la méthode payoff pou
 double Put::boundary_condition_low(double t) const { //Implémentation de la condition à la limite S=0 pour Put
     return K_ * std::exp(-r_ *(T_ - t)); 
 }
-double Put::boundary_condition_high(double t) const { //Implémentation de la condition à la limite S=L pour Put
+double Put::boundary_condition_high(double /*t*/) const { //Implémentation de la condition à la limite S=L pour Put
     return 0.0;
 }
