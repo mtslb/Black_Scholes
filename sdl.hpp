@@ -1,10 +1,10 @@
 /**
- * @file sdl.h
+ * @file sdl.hpp
  * @brief Déclaration de la classe Sdl
  */
 
-#ifndef SDL_H
-#define SDL_H
+#ifndef SDL_HPP
+#define SDL_HPP
 
 #include <SDL2/SDL.h>
 #include <vector> // Pour std::vector
@@ -75,4 +75,4 @@ class Sdl
         void show();
 };
 
-#endif // SDL_H
+#endif // SDL_HPP
