@@ -1,45 +1,83 @@
+/**
+ * @file solver.hpp
+ * @brief Classes pour la résolution numérique des EDP (Implicite, Crank-Nicolson).
+ */
+
 #ifndef SOLVER_HPP
 #define SOLVER_HPP
 
 #include <vector>
 #include "edp.hpp"
 
+/**
+ * @class solver
+ * @brief Classe de base pour les schémas de résolution numérique.
+ */
+class solver {
+protected:
+    EDP& edp_; /**< Référence vers l'EDP à résoudre */
+    int N_;    /**< Nombre de pas de temps */
+    int M_;    /**< Nombre de pas d'espace */
+    double dt_; /**< Taille du pas de temps */
+    double dS_; /**< Taille du pas d'espace */
+    std::vector<double> S_; /**< Maillage spatial */
+    std::vector<double> t_; /**< Maillage temporel */
+    std::vector< std::vector<double> > v_; /**< Matrice des résultats (Prix) */
 
-class Solver {
-    protected: //pour que les classes filles y aient accès
-        double dt_; // Pas de temps
-        double dS_; // Pas d'espace
-        EDP&  edp_; // Référence vers l'EDP à résoudre
-        int N_; // Nombre de points en espace
-        int M_; // Nombre de points en temps
-        std::vector<double> t_; // Valeurs de temps t pour lesquelles on calcule la solution
-        std::vector<double> S_; // Valeurs de l'actif S pour lesquelles on calcule la solution
-        std::vector< std::vector<double> > V_; // Matrice des prix
+public:
+    /**
+     * @brief Constructeur du solver.
+     * @param edp Référence vers l'EDP.
+     * @param N Nombre d'itérations temporelles.
+     * @param M Nombre d'itérations spatiales.
+     */
+    solver(EDP& edp, int N, int M);
 
-    public:
-        Solver(EDP& edp, int N, int M);
-        std::vector<double> algoThomas(const std::vector<double>& x, const std::vector<double>& y, const std::vector<double>& z, const std::vector<double>& b);
-        virtual std::vector<double> solve() = 0;
-    };
+    /**
+     * @brief Méthode virtuelle pure lançant la résolution.
+     */
+    virtual void solve() = 0;
 
+    /**
+     * @brief Récupère la matrice des prix calculés.
+     * @return v_ Un vecteur de vecteurs de doubles.
+     */
+    std::vector< std::vector<double> > get_results() const { return v_; }
+    
+    /**
+     * @brief Résout un système tridiagonal par l'algorithme de Thomas.
+     * @param a Diagonale inférieure.
+     * @param b Diagonale principale.
+     * @param c Diagonale supérieure.
+     * @param d Vecteur du second membre.
+     * @return Vecteur solution du système.
+     */
+    std::vector<double> thomas_algorithm(const std::vector<double>& a, 
+                                        const std::vector<double>& b, 
+                                        const std::vector<double>& c, 
+                                        const std::vector<double>& d);
+};
 
-//classe Differences finies implicites
-class solver_edp_reduite : public Solver { //heritage de la classe Solver
-    public:
-        solver_edp_reduite(EDP& edp, int N, int M);
-        void reverse_variables();
-        std::vector<double> solve() override;
-    };
+/**
+ * @class cranck_nicolson
+ * @brief Implémentation du schéma numérique de Crank-Nicolson.
+ */
+class cranck_nicolson : public solver {
+public:
+    cranck_nicolson(EDP& edp, int N, int M) : solver(edp, N, M) {}
+    /** @brief Exécute l'algorithme de Crank-Nicolson. */
+    void solve() override;
+};
 
+/**
+ * @class implicite_solver
+ * @brief Implémentation du schéma numérique totalement implicite.
+ */
+class implicite_solver : public solver {
+public:
+    implicite_solver(EDP& edp, int N, int M) : solver(edp, N, M) {}
+    /** @brief Exécute l'algorithme de résolution implicite. */
+    void solve() override;
+};
 
-
-//classe Cranck-Nicolson 
-class solver_edp_complete : public Solver { //heritage de la classe Solver
-    public:
-        solver_edp_complete(EDP& edp, int N, int M);
-            // : Solver(edp, N, M) {}
-        std::vector<double> solve() override;
-
-    };
-
-#endif // SOLVER_HPP
+#endif
