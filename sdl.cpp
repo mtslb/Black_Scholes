@@ -1,9 +1,11 @@
 /**
  * @file sdl.cpp
+ * @author Mathias LE BOUEDEC - Lilou MALFOY
+ * @date 2025
  * @brief Implémentation de la classe Sdl
  */
 
-#include "sdl.hpp" // Pour la déclaration de la classe Sdl
+#include "sdl.hpp" 
  
 /**
  * @brief Initialise la fenêtre SDL
@@ -31,7 +33,7 @@ SDL_Window* init_window(const std::string& title, int width, int height)
  * @return Pointeur vers le renderer SDL créé, ou nullptr en cas d'erreur
  */
 SDL_Renderer* init_renderer(SDL_Window* window) {
-    // On remplace SDL_RENDERER_ACCELERATED par SDL_RENDERER_SOFTWARE
+
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
     
     if (renderer == nullptr) {
@@ -39,7 +41,6 @@ SDL_Renderer* init_renderer(SDL_Window* window) {
         return nullptr;
     }
 
-    // On force un premier rendu noir pour "réveiller" la fenêtre
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
@@ -52,14 +53,13 @@ SDL_Renderer* init_renderer(SDL_Window* window) {
 */
 void cleanup(SDL_Renderer* renderer, SDL_Window* window)
 {
-    // Détruire le renderer
+    //détruire le renderer et le window 
     if (renderer != nullptr)
     {
         SDL_DestroyRenderer(renderer);
         renderer = nullptr;
     }
 
-    // Détruire la fenêtre
     if (window != nullptr)
     {
         SDL_DestroyWindow(window);
@@ -80,6 +80,13 @@ Sdl::Sdl() : renderer_(nullptr), window_(nullptr) {} // Initialisation de render
 Sdl::Sdl(SDL_Renderer* renderer, SDL_Window* window) : renderer_(renderer), window_(window) {}
 
 /**
+ * @brief Destructeur
+ */
+Sdl::~Sdl(){
+    cleanup(renderer_, window_);
+}
+
+/**
  * @brief Affiche une courbe dans la fenêtre
  * @param x Vecteur correspondant aux abscisses
  * @param y Vecteur correspondant aux odronnées
@@ -93,19 +100,13 @@ void Sdl::draw_curve(const std::vector<double>& x, const std::vector<double>& y,
     int window_height = 480;
     int margin = 30;
 
-    // --- TEST DE DESSIN FORCE ---
-    // On dessine une croix blanche pour vérifier que le renderer fonctionne
-    // SDL_SetRenderDrawColor(renderer_, 255, 255, 255, 255);
-    // SDL_RenderDrawLine(renderer_, 0, 0, window_width, window_height);
-    // SDL_RenderDrawLine(renderer_, window_width, 0, 0, window_height);
-
-    // Calcul des bornes
+    //trouver les valeurs min et max pour le redimensionnement
     double xmin = *std::min_element(x.begin(), x.end());
     double xmax = *std::max_element(x.begin(), x.end());
     double ymin = *std::min_element(y.begin(), y.end());
     double ymax = *std::max_element(y.begin(), y.end());
 
-    // Sécurité : évite la division par zéro si les prix sont tous identiques
+    //evite la division par zéro
     double dy = ymax - ymin;
     if (dy < 1e-6) dy = 1.0;
     double dx = xmax - xmin;
@@ -114,7 +115,6 @@ void Sdl::draw_curve(const std::vector<double>& x, const std::vector<double>& y,
     const double xscale = static_cast<double>(window_width - 2 * margin) / dx;
     const double yscale = static_cast<double>(window_height - 2 * margin) / dy;
 
-    // Dessin de la courbe
     SDL_SetRenderDrawColor(renderer_, color[0], color[1], color[2], 255);
     for (std::size_t i = 1; i < x.size(); i++)
     {
@@ -126,8 +126,9 @@ void Sdl::draw_curve(const std::vector<double>& x, const std::vector<double>& y,
         SDL_RenderDrawLine(renderer_, x1, y1, x2, y2);
     }
 }
+
 /**
- * @brief Met à jour le renderer
+ * @brief affiche la fenêtre
  */
 void Sdl::show()
 {

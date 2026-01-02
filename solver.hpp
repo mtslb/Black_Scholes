@@ -1,10 +1,22 @@
+/**
+ * @file solver.hpp
+ * @author Mathias LE BOUEDEC - Lilou MALFOY
+ * @date 2025
+ * @brief Définition de la classe abstraite Solver et de ses classes dérivées Cranck-Nicolson et Implicite
+ */
+
 #ifndef SOLVER_HPP
 #define SOLVER_HPP
 
 #include "edp.hpp"
 #include <vector>
 
-class solver {
+
+/**
+ * @brief Classe abstraite Solver
+ */
+
+class Solver {
 protected:
     EDP& edp_;   // Référence vers l'EDP à résoudre
     int N_;      // Nombre de points en espace
@@ -16,40 +28,82 @@ protected:
     std::vector<std::vector<double>> v_; // Matrice des solutions (valeurs de l'option) 
 
 public:
-    //constructeur
-    solver(EDP& edp, int N, int M);   
-    //destructeur
-    virtual void solve() = 0;   // Méthode virtuelle pure (=0)
-    // Getter pour récupérer les résultats
+    /**
+     * @brief Constructeur de la classe Solver
+     * @param edp Référence vers l'EDP à résoudre
+     * @param N Nombre de points en espace
+     * @param M Nombre de points en temps
+     */
+    Solver(EDP& edp, int N, int M);   
+    
+    /**
+     * @brief Destructeur virtuel de la classe Solver
+     */
+    virtual ~Solver() = default; 
+
+    /**
+     * @brief Méthode virtuelle pure pour résoudre l'EDP
+     */
+    virtual void solve() = 0;  
+    
+    /**
+     * @brief Getter pour récupérer les résultats
+     * @return Matrice des solutions (valeurs de l'option)
+     */
     std::vector<std::vector<double>> get_results() const;
     
-    //algorithme de Thomas pour résoudre un système tridiagonal
+    /**
+     * @brief Algorithme de Thomas pour résoudre un système tridiagonal
+     * @param a Diagonale inférieure
+     * @param b Diagonale principale
+     * @param c Diagonale supérieure
+     * @param d Membre de droite
+     * @return Solution du système tridiagonal
+     */
     std::vector<double> thomas_algorithm(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& d);
 };
 
 
-//Implémentation des classes dérivées 
 
+/** 
+ * @brief Classe Crank-Nicolson héritant de Solver
+ */
 
-
-
-//Classe Crank-Nicolson 
-class cranck_nicolson : public solver {  //hérite de la classe solver
+class Cranck_nicolson : public Solver {  
 public:
-    //constructeur
-    cranck_nicolson(EDP& edp, int N, int M);  
-    //méthode de résolution crank-nicolson
+    /**
+     * @brief Constructeur de la classe Cranck_nicolson
+     * @param edp Référence vers l'EDP à résoudre
+     * @param N Nombre de points en espace
+     * @param M Nombre de points en temps
+     */
+    Cranck_nicolson(EDP& edp, int N, int M);  
+
+    /**
+     * @brief Méthode de résolution crank-nicolson
+     */
     void solve() override;
 };
 
 
 
-//Classe Implicite
-class implicite_solver : public solver {  //hérite de la classe solver
+/**
+ * @brief Classe Implicite héritant de Solver
+ */
+
+class Implicite_solver : public Solver {  
 public:
-    //constructeur
-    implicite_solver(EDP& edp, int N, int M); 
-    //méthode de résolution implicite
+    /**
+     * @brief Constructeur de la classe Implicite_solver
+     * @param edp Référence vers l'EDP à résoudre
+     * @param N Nombre de points en espace
+     * @param M Nombre de points en temps
+     */
+    Implicite_solver(EDP& edp, int N, int M); 
+    
+    /**
+     * @brief Méthode de résolution implicite
+     */
     void solve() override;
 };
 

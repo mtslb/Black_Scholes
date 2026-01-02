@@ -1,17 +1,19 @@
 /**
- * @file sdl.h
+ * @file sdl.hpp
+ * @author Mathias LE BOUEDEC - Lilou MALFOY
+ * @date 2025
  * @brief Déclaration de la classe Sdl
  */
 
-#ifndef SDL_H
-#define SDL_H
+#ifndef SDL_HPP
+#define SDL_HPP
 
 #include <SDL2/SDL.h>
-#include <vector> // Pour std::vector
-#include <string> // Pour std::string
-#include <algorithm>  // Pour std::max et std::min
-#include <iostream> // Pour std::cout et std::endl
-#include <limits> // Pour std::numeric_limits
+#include <vector> 
+#include <string> 
+#include <algorithm>  
+#include <iostream> 
+#include <limits> 
 
 /**
 * @brief Initialise la fenêtre SDL
@@ -59,20 +61,20 @@ class Sdl
         /**
         * @brief Destructeur
         */
-        ~Sdl() { cleanup(renderer_, window_); };
+        ~Sdl();
 
         /**
         * @brief Affiche une courbe dans la fenêtre
-        * @param x Vecteur correspondant aux abscisses
-        * @param y Vecteur correspondant aux odronnées
+        * @param x vecteur correspondant aux abscisses
+        * @param y vecteur correspondant aux ordonnées
         * @param color Couleur de la courbe, sous la forme d'un vecteur de trois entiers non signés de 8 bits
         */
         void draw_curve(const std::vector<double>& x, const std::vector<double>& y, const std::vector<Uint8>& color);
 
         /**
-        * @brief Met à jour le renderer
+        * @brief affiche la fenêtre
         */
         void show();
 };
 
-#endif // SDL_H
+#endif 

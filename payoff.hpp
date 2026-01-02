@@ -1,3 +1,10 @@
+/**
+ * @file payoff.hpp
+ * @author Mathias LE BOUEDEC - Lilou MALFOY
+ * @date 2025
+ * @brief Définition de la classe abstraite Option et de ses classes dérivées Call et Put
+ */
+
 #ifndef PAYOFF_HPP
 #define PAYOFF_HPP
 
@@ -5,38 +12,128 @@
 #include<cmath>
 #include<stdexcept>
 
-// Classe abstraite Option
+
+/**
+ * @brief Classe abstraite Option
+ */
+
 class Option{
     protected:
-        double K_;
-        double L_;
-        double r_;
-        double T_;
+        double K_; //strike 
+        double L_; //valeur maximale de l'actif sous-jacent
+        double r_; //taux d'intérêt sans risque
+        double T_; //temps terminal
 
     public:
-        Option(double K, double L, double r, double T); // constructeur
+        /**
+        * @brief Constructeur de la classe Option
+        * @param K Strike de l'option
+        * @param L Valeur maximale de l'actif sous-jacent
+        * @param r Taux d'intérêt sans risque
+        * @param T Temps terminal
+        */
+        Option(double K, double L, double r, double T); 
+
+        /**
+        * @brief Destructeur de la classe Option
+        */
         virtual ~Option(); // destructeur virtuel
-        virtual double payoff(double S) const = 0; // méthode virtuelle pure (=0)
-        virtual double boundary_condition_low(double t) const = 0; // méthode virtuelle pure (=0)
-        virtual double boundary_condition_high(double t) const = 0; // méthode virtuelle pure (=0)
+        
+        /**
+        * @brief Méthode virtuelle pure pour le payoff de l'option
+        * @param S Prix de l'actif sous-jacent
+        * @return Valeur du payoff
+        */
+        virtual double payoff(double S) const = 0; 
+
+        /**
+        * @brief Méthode virtuelle pure pour la condition à la limite basse
+        * @param t Temps
+        * @return Valeur de la condition à la limite basse S=0
+        */
+        virtual double boundary_condition_low(double t) const = 0; 
+
+        /**
+        * @brief Méthode virtuelle pure pour la condition à la limite haute
+        * @param t Temps
+        * @return Valeur de la condition à la limite haute
+        */
+        virtual double boundary_condition_high(double t) const = 0; 
 };
 
-// Classe pour Call
+
+
+/**
+ * @brief Classe Call qui hérite de la classe Option
+ */
+
 class Call : public Option{ // Classe dérivée de Option
     public:
-        Call(double K, double L, double r, double T); //Option(K, L, r, T) {}
+        /**
+         * @brief Constructeur de la classe Call
+         * @param K Strike de l'option
+         * @param L Valeur maximale de l'actif sous-jacent
+         * @param r Taux d'intérêt sans risque
+         * @param T Temps terminal
+         */
+        Call(double K, double L, double r, double T);
+
+        /**
+         * @brief Méthode pour le payoff de l'option Call
+         * @param S Prix de l'actif sous-jacent
+         * @return Valeur du payoff
+         */
         double payoff(double S) const override;
-        double boundary_condition_low(double t) const override;     //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Call
-        double boundary_condition_high(double t) const override;    //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Call
+
+        /**
+         * @brief Méthode pour la condition à la limite basse
+         * @param t Temps
+         * @return Valeur de la condition à la limite basse S=0
+         */
+        double boundary_condition_low(double t) const override;    
+        /**
+         * @brief Méthode pour la condition à la limite haute
+         * @param t Temps
+         * @return Valeur de la condition à la limite haute S=L
+         */
+        double boundary_condition_high(double t) const override;  
 };
 
-// Classe pour Put
-class Put : public Option{  // Classe dérivée de Option
+
+
+/**
+ * @brief Classe Put qui hérite de la classe Option
+ */
+class Put : public Option{  
     public:
-        Put(double K, double L, double r, double T); //Option(K, L, r, T) {}
-        double payoff(double S) const override; 
-        double boundary_condition_low(double t) const override;     //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Put
-        double boundary_condition_high(double t) const override;    //override car dérivée d'une méthode virtuelle pure on réecrit la méthode pour Put
-};
+        /**
+         * @brief Constructeur de la classe Put
+         * @param K Strike de l'option
+         * @param L Valeur maximale de l'actif sous-jacent
+         * @param r Taux d'intérêt sans risque
+         * @param T Temps terminal
+         */
+        Put(double K, double L, double r, double T); 
 
+        /**
+         * @brief Méthode pour le payoff de l'option Put
+         * @param S Prix de l'actif sous-jacent
+         * @return Valeur du payoff
+         */
+        double payoff(double S) const override; 
+
+        /**
+         * @brief Méthode pour la condition à la limite basse
+         * @param t Temps
+         * @return Valeur de la condition à la limite basse S=0
+         */
+        double boundary_condition_low(double t) const override;     
+
+        /**
+         * @brief Méthode pour la condition à la limite haute
+         * @param t Temps
+         * @return Valeur de la condition à la limite haute S=L
+         */
+        double boundary_condition_high(double t) const override;    
+};
 #endif // PAYOFF_HPP

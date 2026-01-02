@@ -16,7 +16,7 @@
  * @param L Valeur maximale de l'actif sous-jacent
  */
 EDP::EDP(Option* option, double sigma, double r, double T, double L)
-    : option_(option), sigma_(sigma), r_(r), T_(T), L_(L) {} //constructeur
+    : option_(option), sigma_(sigma), r_(r), T_(T), L_(L) {}
 
 /**
  * @brief Getter pour l'option
@@ -58,11 +58,24 @@ double EDP::getL() const {
     return L_;
 }
 
-
-//Implémentation des méthodes de la classe EDP_complete
+/**
+* @brief Constructeur de la classe EDP_complete
+* @param option Pointeur vers l'option (Call ou Put)
+* @param sigma Volatilité de l'actif sous-jacent
+* @param r Taux d'intérêt sans risque
+* @param T Temps terminal
+* @param L Valeur maximale de l'actif sous-jacent
+*/
 EDP_complete::EDP_complete(Option* option, double sigma, double r, double T, double L)
-    : EDP(option, sigma, r, T, L) {}     //appel du constructeur de la classe mère EDP
+    : EDP(option, sigma, r, T, L) {}     
 
-//Implémentation des méthodes de la classe EDP_reduite
+/**
+* @brief Constructeur de la classe EDP_reduite
+* @param option Pointeur vers l'option (Call ou Put)
+* @param sigma Volatilité de l'actif sous-jacent
+* @param r Taux d'intérêt sans risque
+* @param T Temps terminal
+* @param L Valeur maximale de l'actif sous-jacent
+*/
 EDP_reduite::EDP_reduite(Option* option, double sigma, double r, double T, double L)
     : EDP(option, sigma, r, T, L) {}    //appel du constructeur de la classe mère EDP

@@ -1,22 +1,63 @@
+/**
+ * @file solver.cpp
+ * @author Mathias LE BOUEDEC - Lilou MALFOY
+ * @date 2025
+ * @brief Implémentation de la classe abstraite Solver et de ses classes dérivées Cranck-Nicolson et Implicite
+ */
+
+
 #include "solver.hpp"
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 
-//Classe solver
-//algorithme de Thomas pour résoudre un système tridiagonal
-std::vector<double> solver::thomas_algorithm(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& d) {
+
+/**
+ * @brief Constructeur de la classe Solver
+ * @param edp Référence vers l'EDP à résoudre
+ * @param N Nombre de points en espace
+ * @param M Nombre de points en temps
+ */
+Solver::Solver(EDP& edp, int N, int M) : edp_(edp), N_(N), M_(M) {  
+    dt_ = edp_.getT() / static_cast<double>(M_); //pas de temps
+    dS_ = edp_.getL() / static_cast<double>(N_); //pas en espace
+
+    S_.resize(N_ + 1);
+    for (int i = 0; i <= N_; ++i) S_[i] = i * dS_;
+    t_.resize(M_ + 1);
+    for (int j = 0; j <= M_; ++j) t_[j] = j * dt_;
+
+    v_.resize(M_ + 1, std::vector<double>(N_ + 1, 0.0));
+}
+
+/**
+ * @brief Getter pour récupérer les résultats
+ * @return Matrice des solutions (valeurs de l'option)
+ */
+std::vector<std::vector<double>> Solver::get_results() const {
+    return v_;
+}
+
+/**
+ * @brief Algorithme de Thomas pour résoudre un système tridiagonal
+ * @param a Diagonale inférieure
+ * @param b Diagonale principale
+ * @param c Diagonale supérieure
+ * @param d Membre de droite
+ * @return Solution du système tridiagonal
+ */
+std::vector<double> Solver::thomas_algorithm(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& d) {
     int n = d.size();  //taille du système
     std::vector<double> cp(n, 0.0); //coefficients modifiés
     std::vector<double> dp(n, 0.0); //membre de droite modifié
     std::vector<double> sol(n, 0.0); //solution
 
-    // Eliminer les coefficients a_i sous la diagonale pour transformer la matrice en une matrice triangulaire supérieure
+    //Eliminer les coefficients a_i sous la diagonale pour transformer la matrice en une matrice triangulaire supérieure
     cp[0] = c[0] / b[0];
     dp[0] = d[0] / b[0]; 
 
     for (int i = 1; i < n; i++) {
-        double denom = b[i] - a[i] * cp[i - 1];  //on calcule le nouveau pivot
+        double denom = b[i] - a[i] * cp[i - 1];  
         if (std::abs(denom) < 1e-20) {
             denom = 1e-20;  
         }
@@ -33,39 +74,20 @@ std::vector<double> solver::thomas_algorithm(const std::vector<double>& a, const
     return sol;
 }
 
+/**
+ * @brief Constructeur de la classe Cranck_nicolson
+ * @param edp Référence vers l'EDP à résoudre
+ * @param N Nombre de points en espace
+ * @param M Nombre de points en temps
+ */
+Cranck_nicolson::Cranck_nicolson(EDP& edp, int N, int M) : 
+    Solver(edp, N, M) {}
 
+/** 
+ * @brief Méthode de résolution de l'équation de Black-Scholes avec Crank-Nicolson
+ */
 
-//constructeur
-solver::solver(EDP& edp, int N, int M) : edp_(edp), N_(N), M_(M) {  
-    dt_ = edp_.getT() / static_cast<double>(M_); //pas de temps
-    dS_ = edp_.getL() / static_cast<double>(N_); //pas en espace
-
-    S_.resize(N_ + 1);
-    for (int i = 0; i <= N_; ++i) S_[i] = i * dS_;
-    t_.resize(M_ + 1);
-    for (int j = 0; j <= M_; ++j) t_[j] = j * dt_;
-
-    v_.resize(M_ + 1, std::vector<double>(N_ + 1, 0.0));
-}
-
-
-// Getter pour récupérer les résultats
-std::vector<std::vector<double>> solver::get_results() const {
-    return v_;
-}
-
-
-
-
-//Classe Crank-Nicolson
-//constructeur
-cranck_nicolson::cranck_nicolson(EDP& edp, int N, int M) : 
-    solver(edp, N, M) {}
-
-
-
-//méthode de résolution crank-nicolson
-void cranck_nicolson::solve() {
+void Cranck_nicolson::solve() {
     double r = edp_.getR();  //on récupère le taux d'intérêt
     double sigma = edp_.getSigma(); //on récupère la volatilité
 
@@ -119,17 +141,18 @@ void cranck_nicolson::solve() {
     }
 }
 
+/**
+ * @brief Constructeur de la classe Implicite_solver
+ * @param edp Référence vers l'EDP à résoudre
+ * @param N Nombre de points en espace
+ * @param M Nombre de points en temps
+ */
+Implicite_solver::Implicite_solver(EDP& edp, int N, int M) : 
+    Solver(edp, N, M) {}
 
-
-
-//Classe Implicite_solver
-//constructeur
-implicite_solver::implicite_solver(EDP& edp, int N, int M) : 
-    solver(edp, N, M) {}
-
-
-//méthode de résolution implicite
-void implicite_solver::solve() {
+/** @brief Méthode de résolution de l'équation de Black-Scholes avec méthode implicite 
+*/
+void Implicite_solver::solve() {
     //pour l'EDP réduite (équation de la chaleur : u_t = 0.5 * sigma^2 * u_xx)
     double lambda = (edp_.getSigma() * edp_.getSigma() * dt_) / (2 * dS_ * dS_);
 
