@@ -221,10 +221,10 @@ void Implicite_solver::solve() {
     std::vector<double> a(N_ - 1, -lambda);  //diagonale inférieure
     std::vector<double> b(N_ - 1, 1 + 2 * lambda); //diagonale principale
     std::vector<double> c(N_ - 1, -lambda); //diagonale supérieure
+    std::vector<double> d(N_ - 1); //membre de droite
 
     for (int j = 1; j <= M_; ++j) {
-        std::vector<double> d(N_ - 1); //membre de droite
-
+        
         double real_t_ = edp_.getT() - t_[j];
 
         // Conditions aux bords après changement de variable (voir 2.4.2 du rapport)
@@ -232,9 +232,9 @@ void Implicite_solver::solve() {
         v_[j][N_] = edp_.getOption()->boundary_condition_high(x_max, real_t_) * std::exp(r * t_[j]);
 
         d[0] +=  lambda * v_[j][0]; //ajout de la condition à la frontière basse
-        d[N_] += lambda * v_[j][N_];  //ajout de la condition à la frontière haute
+        d[N_-2] += lambda * v_[j][N_];  //ajout de la condition à la frontière haute
 
-        for (int i = 1; i < N_; ++i) {
+        for (int i = 1; i < N_-2; ++i) {
             d[i] = v_[j][i]; //membre de droite=prix à l'instant j
         }
 

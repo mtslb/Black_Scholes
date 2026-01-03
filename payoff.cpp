@@ -48,8 +48,8 @@ double Call::payoff(double S) const {
  * @param t Temps
  * @return Valeur de la condition aux limites basse S=0
  */
-double Call::boundary_condition_low(double L, double t) const { 
-    return L*t*0.0; 
+double Call::boundary_condition_low(double /*L*/, double /*t*/) const { 
+    return 0.0; 
 }
 
 /**
@@ -85,8 +85,8 @@ double Put::payoff(double S) const {
  * @param t Temps
  * @return Valeur de la condition aux limites basse S=0
  */
-double Put::boundary_condition_low(double L, double t) const { 
-    return L * 0.0 + K_ * std::exp(-r_ *(T_ - t)); 
+double Put::boundary_condition_low(double /*L*/, double t) const { 
+    return 0.0 + K_ * std::exp(-r_ *(T_ - t)); 
 }
 
 /**
@@ -94,6 +94,6 @@ double Put::boundary_condition_low(double L, double t) const {
  * @param t Temps
  * @return Valeur de la condition aux limites haute S=L
  */
-double Put::boundary_condition_high(double L, double t) const { 
-    return L*t*0.0;
+double Put::boundary_condition_high(double /*L*/, double /*t*/) const { 
+    return 0.0;
 }
