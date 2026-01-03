@@ -1,0 +1,39 @@
+\doxysection{edp.\+hpp}
+\hypertarget{edp_8hpp_source}{}\label{edp_8hpp_source}\mbox{\hyperlink{edp_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ EDP\_HPP}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ EDP\_HPP}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{payoff_8hpp}{payoff.hpp}}"{}}\ \textcolor{comment}{//pour\ la\ déclaration\ de\ la\ classe\ payoff}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_e_d_p_a0105f1ed4427ef40142c89a4a47579d5}{EDP}}\ \{\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_option}{Option}}*\ \mbox{\hyperlink{class_e_d_p_a14ce561ef1fccbc53f2cfa480f1e8f98}{option\_}};\ \textcolor{comment}{//\ pointeur\ vers\ l'option\ (Call\ ou\ Put)\ }}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_e_d_p_a3f1709deed3174bedf3c088e22c76de9}{sigma\_}};\ \textcolor{comment}{//\ Volatilité\ de\ l'actif\ sous-\/jacent}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_e_d_p_ae187b93a48d69ea5b85ceddcc363681f}{r\_}};\ \ \ \ \ \textcolor{comment}{//\ Taux\ d'intérêt\ sans\ risque}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_e_d_p_a5038ff6b2828c10fa61bee30b0978e3f}{T\_}};\ \ \ \ \ \textcolor{comment}{//\ Temps\ terminal\ }}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_e_d_p_a98cc3c5c5d1b3ba200cbb15e18abd3ea}{L\_}};\ \ \ \ \ \textcolor{comment}{//\ Valeur\ maximale\ de\ l'actif\ sous-\/jacent}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_e_d_p_a0105f1ed4427ef40142c89a4a47579d5}{EDP}}(\mbox{\hyperlink{class_option}{Option}}*\ option,\ \textcolor{keywordtype}{double}\ sigma,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ T,\ \textcolor{keywordtype}{double}\ L);\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_option}{Option}}*\ \mbox{\hyperlink{class_e_d_p_ace0ee6085f33c18593a1389c31b09ad7}{getOption}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_e_d_p_a62e7f68fd754c834e0399ba4bee807cf}{getSigma}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_e_d_p_a57fe2ea10393b16549b4d9cdfc6aa447}{getR}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_e_d_p_adb66df2784ec628142b33c26e35b0e99}{getT}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_e_d_p_a34740fd0a032c4b57addbd1a0ef9633d}{getL}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ EDP\_HPP}}
+
+\end{DoxyCode}

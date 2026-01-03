@@ -1,0 +1,115 @@
+\doxysection{Sdl Class Reference}
+\hypertarget{class_sdl}{}\label{class_sdl}\index{Sdl@{Sdl}}
+
+
+Classe permettant d\textquotesingle{}afficher des courbes dans une fenêtre SDL.  
+
+
+
+
+{\ttfamily \#include $<$sdl.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_sdl_adc501e37d45c124f9382ded1a888f0a7}{Sdl}} ()
+\begin{DoxyCompactList}\small\item\em Constructeur par défaut. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_sdl_a7a972ea769e1f5f5fb280fecca9dfe7d}{Sdl}} (SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}renderer, SDL\+\_\+\+Window \texorpdfstring{$\ast$}{*}window)
+\begin{DoxyCompactList}\small\item\em Constructeur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_sdl_a855bbadc37c0f1e224fb1c8c1ab579d4}{\texorpdfstring{$\sim$}{\string~}\+Sdl}} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sdl_a4019d5187f757878da1aa29d4c561813}{draw\+\_\+curve}} (const std\+::vector$<$ double $>$ \&x, const std\+::vector$<$ double $>$ \&y, const std\+::vector$<$ Uint8 $>$ \&color)
+\begin{DoxyCompactList}\small\item\em Affiche une courbe dans la fenêtre. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sdl_a41f61403a956adc385384a25e9be69e4}{show}} ()
+\begin{DoxyCompactList}\small\item\em affiche la fenêtre \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe permettant d\textquotesingle{}afficher des courbes dans une fenêtre SDL. 
+
+\label{doc-constructors}
+\Hypertarget{class_sdl_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_sdl_adc501e37d45c124f9382ded1a888f0a7}\index{Sdl@{Sdl}!Sdl@{Sdl}}
+\index{Sdl@{Sdl}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{Sdl()}{Sdl()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_sdl_adc501e37d45c124f9382ded1a888f0a7} 
+Sdl\+::\+Sdl (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Constructeur par défaut. 
+
+\Hypertarget{class_sdl_a7a972ea769e1f5f5fb280fecca9dfe7d}\index{Sdl@{Sdl}!Sdl@{Sdl}}
+\index{Sdl@{Sdl}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{Sdl()}{Sdl()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_sdl_a7a972ea769e1f5f5fb280fecca9dfe7d} 
+Sdl\+::\+Sdl (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}}]{renderer}{, }\item[{SDL\+\_\+\+Window \texorpdfstring{$\ast$}{*}}]{window}{}\end{DoxyParamCaption})}
+
+
+
+Constructeur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & Renderer SDL à utiliser pour dessiner les courbes \\
+\hline
+{\em window} & Window SDL à utiliser pour dessiner les courbes \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_sdl_a855bbadc37c0f1e224fb1c8c1ab579d4}\index{Sdl@{Sdl}!````~Sdl@{\texorpdfstring{$\sim$}{\string~}Sdl}}
+\index{````~Sdl@{\texorpdfstring{$\sim$}{\string~}Sdl}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Sdl()}{\string~Sdl()}}
+{\footnotesize\ttfamily \label{class_sdl_a855bbadc37c0f1e224fb1c8c1ab579d4} 
+Sdl\+::\texorpdfstring{$\sim$}{\string~}\+Sdl (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructeur. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_sdl_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_sdl_a4019d5187f757878da1aa29d4c561813}\index{Sdl@{Sdl}!draw\_curve@{draw\_curve}}
+\index{draw\_curve@{draw\_curve}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{draw\_curve()}{draw\_curve()}}
+{\footnotesize\ttfamily \label{class_sdl_a4019d5187f757878da1aa29d4c561813} 
+void Sdl\+::draw\+\_\+curve (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{x}{, }\item[{const std\+::vector$<$ double $>$ \&}]{y}{, }\item[{const std\+::vector$<$ Uint8 $>$ \&}]{color}{}\end{DoxyParamCaption})}
+
+
+
+Affiche une courbe dans la fenêtre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & vecteur correspondant aux abscisses \\
+\hline
+{\em y} & vecteur correspondant aux ordonnées \\
+\hline
+{\em color} & Couleur de la courbe, sous la forme d\textquotesingle{}un vecteur de trois entiers non signés de 8 bits\\
+\hline
+{\em x} & Vecteur correspondant aux abscisses \\
+\hline
+{\em y} & Vecteur correspondant aux odronnées \\
+\hline
+{\em color} & Couleur de la courbe, sous la forme d\textquotesingle{}un vecteur de trois entiers non signés de 8 bits \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_sdl_a41f61403a956adc385384a25e9be69e4}\index{Sdl@{Sdl}!show@{show}}
+\index{show@{show}!Sdl@{Sdl}}
+\doxysubsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily \label{class_sdl_a41f61403a956adc385384a25e9be69e4} 
+void Sdl\+::show (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+affiche la fenêtre 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sdl_8hpp}{sdl.\+hpp}}\item 
+\mbox{\hyperlink{sdl_8cpp}{sdl.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,166 @@
+\doxysection{Implicite\+\_\+solver Class Reference}
+\hypertarget{class_implicite__solver}{}\label{class_implicite__solver}\index{Implicite\_solver@{Implicite\_solver}}
+
+
+Classe Implicite héritant de \doxylink{class_solver}{Solver}.  
+
+
+
+
+{\ttfamily \#include $<$solver.\+hpp$>$}
+
+Inheritance diagram for Implicite\+\_\+solver\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_implicite__solver}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_implicite__solver_ab9c0f894c9ab0458dc5a4d750a6bf510}{Implicite\+\_\+solver}} (\mbox{\hyperlink{class_e_d_p}{EDP}} \&edp, int N, int M)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \doxylink{class_implicite__solver}{Implicite\+\_\+solver}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_implicite__solver_aebdec107e76e9fdd699167f2a0410fb3}{change\+\_\+variable}} ()
+\begin{DoxyCompactList}\small\item\em Changement des variables S\+\_\+ (prix) et t\+\_\+ (temps) pour l\textquotesingle{}\doxylink{class_e_d_p}{EDP} réduite. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_implicite__solver_a0f7434c39dd31df7b190cdd47e74f207}{reverse\+\_\+variable}} ()
+\begin{DoxyCompactList}\small\item\em Changement inverse des variables pour superposition des courbes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_implicite__solver_a1cccc1d9564cbde36735371cbe8e5004}{solve}} ()
+\begin{DoxyCompactList}\small\item\em Méthode de résolution implicite. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_implicite__solver_a353238f5b9842c09288af85caf329b82}{get\+\_\+value\+\_\+at\+\_\+S}} (double s\+\_\+target, int time\+\_\+step) const
+\begin{DoxyCompactList}\small\item\em Récupère la valeur de l\textquotesingle{}option pour un prix S précis par interpolation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_solver}{Solver}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_solver_a3ee7b748792e4d9a554c48a03ed5573e}{Solver}} (\mbox{\hyperlink{class_e_d_p}{EDP}} \&edp, int N, int M)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \doxylink{class_solver}{Solver}. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{class_solver_ae66d48e44a8092358b99fee741f9f045}{get\+\_\+results}} () const
+\begin{DoxyCompactList}\small\item\em Getter pour récupérer les résultats. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a078ef41e8dcadfd1f1f1c72da698f9ef}{thomas\+\_\+algorithm}} (const std\+::vector$<$ double $>$ \&a, const std\+::vector$<$ double $>$ \&b, const std\+::vector$<$ double $>$ \&c, const std\+::vector$<$ double $>$ \&d)
+\begin{DoxyCompactList}\small\item\em Algorithme de Thomas pour résoudre un système tridiagonal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{class_implicite__solver_a0256b4951e02aeeabcd76e7a0ec3b27b}{s\+\_\+min}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_solver}{Solver}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_e_d_p}{EDP}} \& \mbox{\hyperlink{class_solver_adcd86d33ed30fba421ef7e180ff9a878}{edp\+\_\+}}
+\item 
+int \mbox{\hyperlink{class_solver_af50f71193b2e96ccf96438a612f84a59}{N\+\_\+}}
+\item 
+int \mbox{\hyperlink{class_solver_a91ee9f8e847b1161ab6e05850a0883b8}{M\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_solver_aa683c49095dc909996a6b5c6b0ac544f}{dt\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_solver_aecff19151a2eb4e7b420083f074ae3dc}{d\+S\+\_\+}}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a6a99d678d097e4815476eb264c32b365}{S\+\_\+}}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a04fb61789f7f75193601544c62858a45}{t\+\_\+}}
+\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{class_solver_a7af303ad0a59b60bbb17d227db17f942}{v\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe Implicite héritant de \doxylink{class_solver}{Solver}. 
+
+\label{doc-constructors}
+\Hypertarget{class_implicite__solver_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_implicite__solver_ab9c0f894c9ab0458dc5a4d750a6bf510}\index{Implicite\_solver@{Implicite\_solver}!Implicite\_solver@{Implicite\_solver}}
+\index{Implicite\_solver@{Implicite\_solver}!Implicite\_solver@{Implicite\_solver}}
+\doxysubsubsection{\texorpdfstring{Implicite\_solver()}{Implicite\_solver()}}
+{\footnotesize\ttfamily \label{class_implicite__solver_ab9c0f894c9ab0458dc5a4d750a6bf510} 
+Implicite\+\_\+solver\+::\+Implicite\+\_\+solver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_e_d_p}{EDP}} \&}]{edp}{, }\item[{int}]{N}{, }\item[{int}]{M}{}\end{DoxyParamCaption})}
+
+
+
+Constructeur de la classe \doxylink{class_implicite__solver}{Implicite\+\_\+solver}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edp} & Référence vers l\textquotesingle{}\doxylink{class_e_d_p}{EDP} à résoudre \\
+\hline
+{\em N} & Nombre de points en espace \\
+\hline
+{\em M} & Nombre de points en temps \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_implicite__solver_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_implicite__solver_aebdec107e76e9fdd699167f2a0410fb3}\index{Implicite\_solver@{Implicite\_solver}!change\_variable@{change\_variable}}
+\index{change\_variable@{change\_variable}!Implicite\_solver@{Implicite\_solver}}
+\doxysubsubsection{\texorpdfstring{change\_variable()}{change\_variable()}}
+{\footnotesize\ttfamily \label{class_implicite__solver_aebdec107e76e9fdd699167f2a0410fb3} 
+void Implicite\+\_\+solver\+::change\+\_\+variable (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Changement des variables S\+\_\+ (prix) et t\+\_\+ (temps) pour l\textquotesingle{}\doxylink{class_e_d_p}{EDP} réduite. 
+
+Changement de variables S\+\_\+ (prix) pour l\textquotesingle{}\doxylink{class_e_d_p}{EDP} réduite. \Hypertarget{class_implicite__solver_a353238f5b9842c09288af85caf329b82}\index{Implicite\_solver@{Implicite\_solver}!get\_value\_at\_S@{get\_value\_at\_S}}
+\index{get\_value\_at\_S@{get\_value\_at\_S}!Implicite\_solver@{Implicite\_solver}}
+\doxysubsubsection{\texorpdfstring{get\_value\_at\_S()}{get\_value\_at\_S()}}
+{\footnotesize\ttfamily \label{class_implicite__solver_a353238f5b9842c09288af85caf329b82} 
+double Implicite\+\_\+solver\+::get\+\_\+value\+\_\+at\+\_\+S (\begin{DoxyParamCaption}\item[{double}]{s\+\_\+target}{, }\item[{int}]{time\+\_\+step}{}\end{DoxyParamCaption}) const}
+
+
+
+Récupère la valeur de l\textquotesingle{}option pour un prix S précis par interpolation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s\+\_\+target} & Le prix S que l\textquotesingle{}on cherche (ex\+: 100.\+0) \\
+\hline
+{\em time\+\_\+step} & L\textquotesingle{}indice de temps (généralement 0 pour t=0) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+La valeur interpolée (le prix de l\textquotesingle{}option) correspondant au prix s\+\_\+target à l\textquotesingle{}instant spécifié. 
+\end{DoxyReturn}
+\Hypertarget{class_implicite__solver_a0f7434c39dd31df7b190cdd47e74f207}\index{Implicite\_solver@{Implicite\_solver}!reverse\_variable@{reverse\_variable}}
+\index{reverse\_variable@{reverse\_variable}!Implicite\_solver@{Implicite\_solver}}
+\doxysubsubsection{\texorpdfstring{reverse\_variable()}{reverse\_variable()}}
+{\footnotesize\ttfamily \label{class_implicite__solver_a0f7434c39dd31df7b190cdd47e74f207} 
+void Implicite\+\_\+solver\+::reverse\+\_\+variable (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Changement inverse des variables pour superposition des courbes. 
+
+\Hypertarget{class_implicite__solver_a1cccc1d9564cbde36735371cbe8e5004}\index{Implicite\_solver@{Implicite\_solver}!solve@{solve}}
+\index{solve@{solve}!Implicite\_solver@{Implicite\_solver}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily \label{class_implicite__solver_a1cccc1d9564cbde36735371cbe8e5004} 
+void Implicite\+\_\+solver\+::solve (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Méthode de résolution implicite. 
+
+Méthode de résolution de l\textquotesingle{}équation de Black-\/\+Scholes avec méthode implicite. 
+
+Implements \mbox{\hyperlink{class_solver_ad073be705a5da281c18b5f8423fda216}{Solver}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_implicite__solver_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_implicite__solver_a0256b4951e02aeeabcd76e7a0ec3b27b}\index{Implicite\_solver@{Implicite\_solver}!s\_min@{s\_min}}
+\index{s\_min@{s\_min}!Implicite\_solver@{Implicite\_solver}}
+\doxysubsubsection{\texorpdfstring{s\_min}{s\_min}}
+{\footnotesize\ttfamily \label{class_implicite__solver_a0256b4951e02aeeabcd76e7a0ec3b27b} 
+double Implicite\+\_\+solver\+::s\+\_\+min\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{solver_8hpp}{solver.\+hpp}}\item 
+\mbox{\hyperlink{solver_8cpp}{solver.\+cpp}}\end{DoxyCompactItemize}

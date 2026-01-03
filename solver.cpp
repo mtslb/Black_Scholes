@@ -221,9 +221,11 @@ void Implicite_solver::solve() {
     std::vector<double> a(N_ - 1, -lambda);  //diagonale inférieure
     std::vector<double> b(N_ - 1, 1 + 2 * lambda); //diagonale principale
     std::vector<double> c(N_ - 1, -lambda); //diagonale supérieure
-    std::vector<double> d(N_ - 1); //membre de droite
 
     for (int j = 1; j <= M_; ++j) {
+
+        std::vector<double> d(N_ - 1); //membre de droite
+
         
         double real_t_ = edp_.getT() - t_[j];
 
