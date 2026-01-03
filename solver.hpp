@@ -115,11 +115,12 @@ public:
      */
     void solve() ;
 
-    /**
-     * @brief Récupère la valeur de l'option pour un prix S précis par interpolation
-     * @param s_target Le prix S que l'on cherche (ex: 100.0)
-     * @param time_step L'indice de temps (généralement 0 pour t=0)
-     */
+ /**
+ * @brief Récupère la valeur de l'option pour un prix S précis par interpolation
+ * @param s_target Le prix S que l'on cherche (ex: 100.0)
+ * @param time_step L'indice de temps (généralement 0 pour t=0)
+ * @return La valeur interpolée (le prix de l'option) correspondant au prix s_target à l'instant spécifié.
+ */
     double get_value_at_S(double s_target, int time_step) const; 
 };
 
