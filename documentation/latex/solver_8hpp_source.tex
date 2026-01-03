@@ -1,0 +1,67 @@
+\doxysection{solver.\+hpp}
+\hypertarget{solver_8hpp_source}{}\label{solver_8hpp_source}\mbox{\hyperlink{solver_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ SOLVER\_HPP}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ SOLVER\_HPP}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{edp_8hpp}{edp.hpp}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_solver_a3ee7b748792e4d9a554c48a03ed5573e}{Solver}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_e_d_p}{EDP}}\&\ \mbox{\hyperlink{class_solver_adcd86d33ed30fba421ef7e180ff9a878}{edp\_}};\ \ \ \textcolor{comment}{//\ Référence\ vers\ l'EDP\ à\ résoudre}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_solver_af50f71193b2e96ccf96438a612f84a59}{N\_}};\ \ \ \ \ \ \textcolor{comment}{//\ Nombre\ de\ points\ en\ espace}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_solver_a91ee9f8e847b1161ab6e05850a0883b8}{M\_}};\ \ \ \ \ \ \textcolor{comment}{//\ Nombre\ de\ points\ en\ temps}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_solver_aa683c49095dc909996a6b5c6b0ac544f}{dt\_}};\ \ \textcolor{comment}{//\ Pas\ de\ temps}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_solver_aecff19151a2eb4e7b420083f074ae3dc}{dS\_}};\ \ \textcolor{comment}{//\ Pas\ en\ espace}}
+\DoxyCodeLine{00026\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{class_solver_a6a99d678d097e4815476eb264c32b365}{S\_}};\ \ \ \ \ \textcolor{comment}{//\ vecteur\ des\ prix\ de\ l'actif}}
+\DoxyCodeLine{00027\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{class_solver_a04fb61789f7f75193601544c62858a45}{t\_}};\ \ \ \ \ \textcolor{comment}{//\ vecteur\ des\ temps}}
+\DoxyCodeLine{00028\ \ \ \ \ std::vector<\ std::vector<double>\ >\ \mbox{\hyperlink{class_solver_a7af303ad0a59b60bbb17d227db17f942}{v\_}};\ \textcolor{comment}{//\ Matrice\ des\ solutions\ (valeurs\ de\ l'option)\ }}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_solver_a3ee7b748792e4d9a554c48a03ed5573e}{Solver}}(\mbox{\hyperlink{class_e_d_p}{EDP}}\&\ edp,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M);\ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_solver_ad073be705a5da281c18b5f8423fda216}{solve}}()\ =\ 0;\ \ }
+\DoxyCodeLine{00044\ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ std::vector<\ std::vector<double>\ >\ \mbox{\hyperlink{class_solver_ae66d48e44a8092358b99fee741f9f045}{get\_results}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{class_solver_a078ef41e8dcadfd1f1f1c72da698f9ef}{thomas\_algorithm}}(\textcolor{keyword}{const}\ std::vector<double>\&\ a,\ \textcolor{keyword}{const}\ std::vector<double>\&\ b,\ \textcolor{keyword}{const}\ std::vector<double>\&\ c,\ \textcolor{keyword}{const}\ std::vector<double>\&\ d);}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_cranck__nicolson_a7c34a2c0c40a8aa7151f9f5214cff5f0}{Cranck\_nicolson}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_solver_a3ee7b748792e4d9a554c48a03ed5573e}{Solver}}\ \{\ \ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{class_cranck__nicolson_a7c34a2c0c40a8aa7151f9f5214cff5f0}{Cranck\_nicolson}}(\mbox{\hyperlink{class_e_d_p}{EDP}}\&\ edp,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M);\ \ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_cranck__nicolson_a8e871efca8bf0a534f370d8d0caabcc6}{solve}}()\ ;}
+\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_implicite__solver_ab9c0f894c9ab0458dc5a4d750a6bf510}{Implicite\_solver}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_solver_a3ee7b748792e4d9a554c48a03ed5573e}{Solver}}\ \{\ \ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_implicite__solver_a0256b4951e02aeeabcd76e7a0ec3b27b}{s\_min}};\ \textcolor{comment}{//valeur\ minimale\ pour\ changement\ de\ variable\ car\ ln(0)\ diverge}}
+\DoxyCodeLine{00093\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{class_implicite__solver_ab9c0f894c9ab0458dc5a4d750a6bf510}{Implicite\_solver}}(\mbox{\hyperlink{class_e_d_p}{EDP}}\&\ edp,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M);\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_implicite__solver_aebdec107e76e9fdd699167f2a0410fb3}{change\_variable}}();}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_implicite__solver_a0f7434c39dd31df7b190cdd47e74f207}{reverse\_variable}}();}
+\DoxyCodeLine{00112\ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_implicite__solver_a1cccc1d9564cbde36735371cbe8e5004}{solve}}()\ ;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_implicite__solver_a353238f5b9842c09288af85caf329b82}{get\_value\_at\_S}}(\textcolor{keywordtype}{double}\ s\_target,\ \textcolor{keywordtype}{int}\ time\_step)\ \textcolor{keyword}{const};\ }
+\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

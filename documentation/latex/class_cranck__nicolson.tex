@@ -1,0 +1,105 @@
+\doxysection{Cranck\+\_\+nicolson Class Reference}
+\hypertarget{class_cranck__nicolson}{}\label{class_cranck__nicolson}\index{Cranck\_nicolson@{Cranck\_nicolson}}
+
+
+Classe Crank-\/\+Nicolson héritant de \doxylink{class_solver}{Solver}.  
+
+
+
+
+{\ttfamily \#include $<$solver.\+hpp$>$}
+
+Inheritance diagram for Cranck\+\_\+nicolson\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_cranck__nicolson}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_cranck__nicolson_a7c34a2c0c40a8aa7151f9f5214cff5f0}{Cranck\+\_\+nicolson}} (\mbox{\hyperlink{class_e_d_p}{EDP}} \&edp, int N, int M)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \doxylink{class_cranck__nicolson}{Cranck\+\_\+nicolson}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_cranck__nicolson_a8e871efca8bf0a534f370d8d0caabcc6}{solve}} ()
+\begin{DoxyCompactList}\small\item\em Méthode de résolution crank-\/nicolson. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_solver}{Solver}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_solver_a3ee7b748792e4d9a554c48a03ed5573e}{Solver}} (\mbox{\hyperlink{class_e_d_p}{EDP}} \&edp, int N, int M)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \doxylink{class_solver}{Solver}. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{class_solver_ae66d48e44a8092358b99fee741f9f045}{get\+\_\+results}} () const
+\begin{DoxyCompactList}\small\item\em Getter pour récupérer les résultats. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a078ef41e8dcadfd1f1f1c72da698f9ef}{thomas\+\_\+algorithm}} (const std\+::vector$<$ double $>$ \&a, const std\+::vector$<$ double $>$ \&b, const std\+::vector$<$ double $>$ \&c, const std\+::vector$<$ double $>$ \&d)
+\begin{DoxyCompactList}\small\item\em Algorithme de Thomas pour résoudre un système tridiagonal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_solver}{Solver}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_e_d_p}{EDP}} \& \mbox{\hyperlink{class_solver_adcd86d33ed30fba421ef7e180ff9a878}{edp\+\_\+}}
+\item 
+int \mbox{\hyperlink{class_solver_af50f71193b2e96ccf96438a612f84a59}{N\+\_\+}}
+\item 
+int \mbox{\hyperlink{class_solver_a91ee9f8e847b1161ab6e05850a0883b8}{M\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_solver_aa683c49095dc909996a6b5c6b0ac544f}{dt\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_solver_aecff19151a2eb4e7b420083f074ae3dc}{d\+S\+\_\+}}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a6a99d678d097e4815476eb264c32b365}{S\+\_\+}}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a04fb61789f7f75193601544c62858a45}{t\+\_\+}}
+\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{class_solver_a7af303ad0a59b60bbb17d227db17f942}{v\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe Crank-\/\+Nicolson héritant de \doxylink{class_solver}{Solver}. 
+
+\label{doc-constructors}
+\Hypertarget{class_cranck__nicolson_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_cranck__nicolson_a7c34a2c0c40a8aa7151f9f5214cff5f0}\index{Cranck\_nicolson@{Cranck\_nicolson}!Cranck\_nicolson@{Cranck\_nicolson}}
+\index{Cranck\_nicolson@{Cranck\_nicolson}!Cranck\_nicolson@{Cranck\_nicolson}}
+\doxysubsubsection{\texorpdfstring{Cranck\_nicolson()}{Cranck\_nicolson()}}
+{\footnotesize\ttfamily \label{class_cranck__nicolson_a7c34a2c0c40a8aa7151f9f5214cff5f0} 
+Cranck\+\_\+nicolson\+::\+Cranck\+\_\+nicolson (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_e_d_p}{EDP}} \&}]{edp}{, }\item[{int}]{N}{, }\item[{int}]{M}{}\end{DoxyParamCaption})}
+
+
+
+Constructeur de la classe \doxylink{class_cranck__nicolson}{Cranck\+\_\+nicolson}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edp} & Référence vers l\textquotesingle{}\doxylink{class_e_d_p}{EDP} à résoudre \\
+\hline
+{\em N} & Nombre de points en espace \\
+\hline
+{\em M} & Nombre de points en temps \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_cranck__nicolson_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_cranck__nicolson_a8e871efca8bf0a534f370d8d0caabcc6}\index{Cranck\_nicolson@{Cranck\_nicolson}!solve@{solve}}
+\index{solve@{solve}!Cranck\_nicolson@{Cranck\_nicolson}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily \label{class_cranck__nicolson_a8e871efca8bf0a534f370d8d0caabcc6} 
+void Cranck\+\_\+nicolson\+::solve (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Méthode de résolution crank-\/nicolson. 
+
+Méthode de résolution de l\textquotesingle{}équation de Black-\/\+Scholes avec Crank-\/\+Nicolson. 
+
+Implements \mbox{\hyperlink{class_solver_ad073be705a5da281c18b5f8423fda216}{Solver}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{solver_8hpp}{solver.\+hpp}}\item 
+\mbox{\hyperlink{solver_8cpp}{solver.\+cpp}}\end{DoxyCompactItemize}

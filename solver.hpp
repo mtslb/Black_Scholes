@@ -25,7 +25,7 @@ protected:
     double dS_;  // Pas en espace
     std::vector<double> S_;     // vecteur des prix de l'actif
     std::vector<double> t_;     // vecteur des temps
-    std::vector<std::vector<double>> v_; // Matrice des solutions (valeurs de l'option) 
+    std::vector< std::vector<double> > v_; // Matrice des solutions (valeurs de l'option) 
 
 public:
     /**
@@ -36,10 +36,6 @@ public:
      */
     Solver(EDP& edp, int N, int M);   
     
-    /**
-     * @brief Destructeur virtuel de la classe Solver
-     */
-    virtual ~Solver() = default; 
 
     /**
      * @brief Méthode virtuelle pure pour résoudre l'EDP
@@ -50,7 +46,7 @@ public:
      * @brief Getter pour récupérer les résultats
      * @return Matrice des solutions (valeurs de l'option)
      */
-    std::vector<std::vector<double>> get_results() const;
+    std::vector< std::vector<double> > get_results() const;
     
     /**
      * @brief Algorithme de Thomas pour résoudre un système tridiagonal
@@ -82,7 +78,7 @@ public:
     /**
      * @brief Méthode de résolution crank-nicolson
      */
-    void solve() override;
+    void solve() ;
 };
 
 
@@ -92,6 +88,8 @@ public:
  */
 
 class Implicite_solver : public Solver {  
+protected:
+    double s_min; //valeur minimale pour changement de variable car ln(0) diverge
 public:
     /**
      * @brief Constructeur de la classe Implicite_solver
@@ -100,11 +98,29 @@ public:
      * @param M Nombre de points en temps
      */
     Implicite_solver(EDP& edp, int N, int M); 
+
+    /**
+     * @brief Changement des variables 
+     * S_ (prix) et t_ (temps) pour l'EDP réduite 
+     */
+    void change_variable();
+
+    /**
+     * @brief Changement inverse des variables pour superposition des courbes
+     */
+    void reverse_variable();
     
     /**
      * @brief Méthode de résolution implicite
      */
-    void solve() override;
+    void solve() ;
+
+    /**
+     * @brief Récupère la valeur de l'option pour un prix S précis par interpolation
+     * @param s_target Le prix S que l'on cherche (ex: 100.0)
+     * @param time_step L'indice de temps (généralement 0 pour t=0)
+     */
+    double get_value_at_S(double s_target, int time_step) const; 
 };
 
 

@@ -8,7 +8,6 @@
 #include "payoff.hpp"
 #include <cmath>
 #include <algorithm>
-#include <stdexcept>
 
 /**
  * @brief Constructeur de la classe Option
@@ -41,9 +40,6 @@ Call::Call(double K, double L, double r, double T)
  * @return Valeur du payoff
  */
 double Call::payoff(double S) const { 
-    if (S > L_) {
-        throw std::out_of_range("S is out of range");
-    }
     return std::max(S - K_, 0.0);
 }
 
@@ -52,8 +48,8 @@ double Call::payoff(double S) const {
  * @param t Temps
  * @return Valeur de la condition aux limites basse S=0
  */
-double Call::boundary_condition_low(double /*t*/) const { 
-    return 0; 
+double Call::boundary_condition_low(double L, double t) const { 
+    return L*t*0.0; 
 }
 
 /**
@@ -61,8 +57,8 @@ double Call::boundary_condition_low(double /*t*/) const {
  * @param t Temps
  * @return Valeur de la condition aux limites haute S=L
  */
-double Call::boundary_condition_high(double t) const { 
-    return L_ - K_ * std::exp(-r_ * (t -T_));
+double Call::boundary_condition_high(double L, double t) const { 
+    return L - K_ * std::exp(-r_ * (t -T_));
 }
 
 /**
@@ -81,9 +77,6 @@ Put::Put(double K, double L, double r, double T)
  * @return Valeur du payoff
  */
 double Put::payoff(double S) const { 
-    if (S > L_) {
-        throw std::out_of_range("S is out of range");
-    }
     return std::max(K_ - S, 0.0);  
 }
 
@@ -92,8 +85,8 @@ double Put::payoff(double S) const {
  * @param t Temps
  * @return Valeur de la condition aux limites basse S=0
  */
-double Put::boundary_condition_low(double t) const { 
-    return K_ * std::exp(-r_ *(T_ - t)); 
+double Put::boundary_condition_low(double L, double t) const { 
+    return L * 0.0 + K_ * std::exp(-r_ *(T_ - t)); 
 }
 
 /**
@@ -101,6 +94,6 @@ double Put::boundary_condition_low(double t) const {
  * @param t Temps
  * @return Valeur de la condition aux limites haute S=L
  */
-double Put::boundary_condition_high(double /*t*/) const { 
-    return 0.0;
+double Put::boundary_condition_high(double L, double t) const { 
+    return L*t*0.0;
 }

@@ -36,11 +36,6 @@ class EDP {
         EDP(Option* option, double sigma, double r, double T, double L); 
 
         /**
-        * @brief Destructeur de la classe EDP
-        */
-        virtual ~EDP() = default; 
-
-        /**
         * @brief Getter pour l'option
         * @return Pointeur vers l'option
         */
@@ -69,43 +64,6 @@ class EDP {
         * @return Valeur maximale de l'actif sous-jacent
         */
         double getL() const;
-};
-
-
-
-/**
- * @brief Classe abstraite EDP_complete qui hérite de la classe EDP
- */
-
-class EDP_complete : public EDP{ 
-    public :
-        /**
-         * @brief Constructeur de la classe EDP_complete
-         * @param option Pointeur vers l'option (Call ou Put)
-         * @param sigma Volatilité de l'actif sous-jacent
-         * @param r Taux d'intérêt sans risque
-         * @param T Temps terminal
-         * @param L Valeur maximale de l'actif sous-jacent
-         */
-        EDP_complete(Option* option, double sigma, double r, double T, double L);  
-};
-
-
-
-/**
- * @brief Classe abstraite EDP_reduite qui hérite de la classe EDP
- */
-class EDP_reduite: public EDP{
-    public :
-        /**
-         * @brief Constructeur de la classe EDP_reduite
-         * @param option Pointeur vers l'option (Call ou Put)
-         * @param sigma Volatilité de l'actif sous-jacent
-         * @param r Taux d'intérêt sans risque
-         * @param T Temps terminal
-         * @param L Valeur maximale de l'actif sous-jacent
-         */
-        EDP_reduite(Option* option, double sigma, double r, double T, double L);  //constructeur 
 };
 
 

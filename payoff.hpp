@@ -51,14 +51,14 @@ class Option{
         * @param t Temps
         * @return Valeur de la condition à la limite basse S=0
         */
-        virtual double boundary_condition_low(double t) const = 0; 
+        virtual double boundary_condition_low(double L, double t) const = 0; 
 
         /**
         * @brief Méthode virtuelle pure pour la condition à la limite haute
         * @param t Temps
         * @return Valeur de la condition à la limite haute
         */
-        virtual double boundary_condition_high(double t) const = 0; 
+        virtual double boundary_condition_high(double L,double t) const = 0; 
 };
 
 
@@ -83,20 +83,20 @@ class Call : public Option{ // Classe dérivée de Option
          * @param S Prix de l'actif sous-jacent
          * @return Valeur du payoff
          */
-        double payoff(double S) const override;
+        double payoff(double S) const ;
 
         /**
          * @brief Méthode pour la condition à la limite basse
          * @param t Temps
          * @return Valeur de la condition à la limite basse S=0
          */
-        double boundary_condition_low(double t) const override;    
+        double boundary_condition_low(double L, double t) const ;    
         /**
          * @brief Méthode pour la condition à la limite haute
          * @param t Temps
          * @return Valeur de la condition à la limite haute S=L
          */
-        double boundary_condition_high(double t) const override;  
+        double boundary_condition_high(double L, double t) const ;  
 };
 
 
@@ -120,20 +120,20 @@ class Put : public Option{
          * @param S Prix de l'actif sous-jacent
          * @return Valeur du payoff
          */
-        double payoff(double S) const override; 
+        double payoff(double S) const ; 
 
         /**
          * @brief Méthode pour la condition à la limite basse
          * @param t Temps
          * @return Valeur de la condition à la limite basse S=0
          */
-        double boundary_condition_low(double t) const override;     
+        double boundary_condition_low(double L, double t) const ;     
 
         /**
          * @brief Méthode pour la condition à la limite haute
          * @param t Temps
          * @return Valeur de la condition à la limite haute S=L
          */
-        double boundary_condition_high(double t) const override;    
+        double boundary_condition_high(double L, double t) const ;    
 };
 #endif // PAYOFF_HPP

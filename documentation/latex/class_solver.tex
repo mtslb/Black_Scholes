@@ -1,0 +1,189 @@
+\doxysection{Solver Class Reference}
+\hypertarget{class_solver}{}\label{class_solver}\index{Solver@{Solver}}
+
+
+Classe abstraite \doxylink{class_solver}{Solver}.  
+
+
+
+
+{\ttfamily \#include $<$solver.\+hpp$>$}
+
+Inheritance diagram for Solver\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_solver}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_solver_a3ee7b748792e4d9a554c48a03ed5573e}{Solver}} (\mbox{\hyperlink{class_e_d_p}{EDP}} \&edp, int N, int M)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \doxylink{class_solver}{Solver}. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_solver_ad073be705a5da281c18b5f8423fda216}{solve}} ()=0
+\begin{DoxyCompactList}\small\item\em Méthode virtuelle pure pour résoudre l\textquotesingle{}\doxylink{class_e_d_p}{EDP}. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{class_solver_ae66d48e44a8092358b99fee741f9f045}{get\+\_\+results}} () const
+\begin{DoxyCompactList}\small\item\em Getter pour récupérer les résultats. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a078ef41e8dcadfd1f1f1c72da698f9ef}{thomas\+\_\+algorithm}} (const std\+::vector$<$ double $>$ \&a, const std\+::vector$<$ double $>$ \&b, const std\+::vector$<$ double $>$ \&c, const std\+::vector$<$ double $>$ \&d)
+\begin{DoxyCompactList}\small\item\em Algorithme de Thomas pour résoudre un système tridiagonal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_e_d_p}{EDP}} \& \mbox{\hyperlink{class_solver_adcd86d33ed30fba421ef7e180ff9a878}{edp\+\_\+}}
+\item 
+int \mbox{\hyperlink{class_solver_af50f71193b2e96ccf96438a612f84a59}{N\+\_\+}}
+\item 
+int \mbox{\hyperlink{class_solver_a91ee9f8e847b1161ab6e05850a0883b8}{M\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_solver_aa683c49095dc909996a6b5c6b0ac544f}{dt\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_solver_aecff19151a2eb4e7b420083f074ae3dc}{d\+S\+\_\+}}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a6a99d678d097e4815476eb264c32b365}{S\+\_\+}}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_solver_a04fb61789f7f75193601544c62858a45}{t\+\_\+}}
+\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{class_solver_a7af303ad0a59b60bbb17d227db17f942}{v\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe abstraite \doxylink{class_solver}{Solver}. 
+
+\label{doc-constructors}
+\Hypertarget{class_solver_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_solver_a3ee7b748792e4d9a554c48a03ed5573e}\index{Solver@{Solver}!Solver@{Solver}}
+\index{Solver@{Solver}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{Solver()}{Solver()}}
+{\footnotesize\ttfamily \label{class_solver_a3ee7b748792e4d9a554c48a03ed5573e} 
+Solver\+::\+Solver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_e_d_p}{EDP}} \&}]{edp}{, }\item[{int}]{N}{, }\item[{int}]{M}{}\end{DoxyParamCaption})}
+
+
+
+Constructeur de la classe \doxylink{class_solver}{Solver}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edp} & Référence vers l\textquotesingle{}\doxylink{class_e_d_p}{EDP} à résoudre \\
+\hline
+{\em N} & Nombre de points en espace \\
+\hline
+{\em M} & Nombre de points en temps \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_solver_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_solver_ae66d48e44a8092358b99fee741f9f045}\index{Solver@{Solver}!get\_results@{get\_results}}
+\index{get\_results@{get\_results}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{get\_results()}{get\_results()}}
+{\footnotesize\ttfamily \label{class_solver_ae66d48e44a8092358b99fee741f9f045} 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ Solver\+::get\+\_\+results (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Getter pour récupérer les résultats. 
+
+\begin{DoxyReturn}{Returns}
+Matrice des solutions (valeurs de l\textquotesingle{}option) 
+\end{DoxyReturn}
+\Hypertarget{class_solver_ad073be705a5da281c18b5f8423fda216}\index{Solver@{Solver}!solve@{solve}}
+\index{solve@{solve}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily \label{class_solver_ad073be705a5da281c18b5f8423fda216} 
+virtual void Solver\+::solve (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Méthode virtuelle pure pour résoudre l\textquotesingle{}\doxylink{class_e_d_p}{EDP}. 
+
+
+
+Implemented in \mbox{\hyperlink{class_cranck__nicolson_a8e871efca8bf0a534f370d8d0caabcc6}{Cranck\+\_\+nicolson}}, and \mbox{\hyperlink{class_implicite__solver_a1cccc1d9564cbde36735371cbe8e5004}{Implicite\+\_\+solver}}.
+
+\Hypertarget{class_solver_a078ef41e8dcadfd1f1f1c72da698f9ef}\index{Solver@{Solver}!thomas\_algorithm@{thomas\_algorithm}}
+\index{thomas\_algorithm@{thomas\_algorithm}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{thomas\_algorithm()}{thomas\_algorithm()}}
+{\footnotesize\ttfamily \label{class_solver_a078ef41e8dcadfd1f1f1c72da698f9ef} 
+std\+::vector$<$ double $>$ Solver\+::thomas\+\_\+algorithm (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{a}{, }\item[{const std\+::vector$<$ double $>$ \&}]{b}{, }\item[{const std\+::vector$<$ double $>$ \&}]{c}{, }\item[{const std\+::vector$<$ double $>$ \&}]{d}{}\end{DoxyParamCaption})}
+
+
+
+Algorithme de Thomas pour résoudre un système tridiagonal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Diagonale inférieure \\
+\hline
+{\em b} & Diagonale principale \\
+\hline
+{\em c} & Diagonale supérieure \\
+\hline
+{\em d} & Membre de droite \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Solution du système tridiagonal 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{class_solver_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_solver_aecff19151a2eb4e7b420083f074ae3dc}\index{Solver@{Solver}!dS\_@{dS\_}}
+\index{dS\_@{dS\_}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{dS\_}{dS\_}}
+{\footnotesize\ttfamily \label{class_solver_aecff19151a2eb4e7b420083f074ae3dc} 
+double Solver\+::d\+S\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_solver_aa683c49095dc909996a6b5c6b0ac544f}\index{Solver@{Solver}!dt\_@{dt\_}}
+\index{dt\_@{dt\_}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{dt\_}{dt\_}}
+{\footnotesize\ttfamily \label{class_solver_aa683c49095dc909996a6b5c6b0ac544f} 
+double Solver\+::dt\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_solver_adcd86d33ed30fba421ef7e180ff9a878}\index{Solver@{Solver}!edp\_@{edp\_}}
+\index{edp\_@{edp\_}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{edp\_}{edp\_}}
+{\footnotesize\ttfamily \label{class_solver_adcd86d33ed30fba421ef7e180ff9a878} 
+\mbox{\hyperlink{class_e_d_p}{EDP}}\& Solver\+::edp\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_solver_a91ee9f8e847b1161ab6e05850a0883b8}\index{Solver@{Solver}!M\_@{M\_}}
+\index{M\_@{M\_}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{M\_}{M\_}}
+{\footnotesize\ttfamily \label{class_solver_a91ee9f8e847b1161ab6e05850a0883b8} 
+int Solver\+::\+M\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_solver_af50f71193b2e96ccf96438a612f84a59}\index{Solver@{Solver}!N\_@{N\_}}
+\index{N\_@{N\_}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{N\_}{N\_}}
+{\footnotesize\ttfamily \label{class_solver_af50f71193b2e96ccf96438a612f84a59} 
+int Solver\+::\+N\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_solver_a6a99d678d097e4815476eb264c32b365}\index{Solver@{Solver}!S\_@{S\_}}
+\index{S\_@{S\_}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{S\_}{S\_}}
+{\footnotesize\ttfamily \label{class_solver_a6a99d678d097e4815476eb264c32b365} 
+std\+::vector$<$double$>$ Solver\+::\+S\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_solver_a04fb61789f7f75193601544c62858a45}\index{Solver@{Solver}!t\_@{t\_}}
+\index{t\_@{t\_}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{t\_}{t\_}}
+{\footnotesize\ttfamily \label{class_solver_a04fb61789f7f75193601544c62858a45} 
+std\+::vector$<$double$>$ Solver\+::t\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_solver_a7af303ad0a59b60bbb17d227db17f942}\index{Solver@{Solver}!v\_@{v\_}}
+\index{v\_@{v\_}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{v\_}{v\_}}
+{\footnotesize\ttfamily \label{class_solver_a7af303ad0a59b60bbb17d227db17f942} 
+std\+::vector$<$ std\+::vector$<$double$>$ $>$ Solver\+::v\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{solver_8hpp}{solver.\+hpp}}\item 
+\mbox{\hyperlink{solver_8cpp}{solver.\+cpp}}\end{DoxyCompactItemize}
