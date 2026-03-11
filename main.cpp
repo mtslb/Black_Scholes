@@ -13,6 +13,7 @@
 #include "edp.hpp"
 #include "solver.hpp"
 #include "sdl.hpp"
+#include "utils.hpp"
 
 int main() {
     std::cout << "Affichage des courbes :" << std::endl;
@@ -49,8 +50,10 @@ int main() {
     // Interpolation linéaire : on aligne le réduit sur la grille 's'
     std::vector<double> res_call_red_aligned(N + 1);
     for (int i = 0; i <= N; ++i) {
-        res_call_red_aligned[i] = solver_r_call.get_value_at_S(s[i], 0);
+        res_call_red_aligned[i] = solver_r_call.get_value_at_S(s[i], M); // on récupère la valeur à t=0 (indice M)
     }
+    // Export des données numériques dans un fichier CSV
+    export_to_csv("results_call.csv", s, res_call_comp, res_call_red_aligned); 
 
     // CALCULS POUR LE PUT
     Option* put = new Put(K, L, r, T); 
@@ -68,11 +71,14 @@ int main() {
     // Interpolation linéaire : on aligne le réduit sur la grille 's'
     std::vector<double> res_put_red_aligned(N + 1);
     for (int i = 0; i <= N; ++i) {
-        res_put_red_aligned[i] = solver_r_put.get_value_at_S(s[i], 0);
+        res_put_red_aligned[i] = solver_r_put.get_value_at_S(s[i], M);  
     }
+    // Export des données numériques dans un fichier CSV
+    export_to_csv("results_put.csv", s, res_put_comp, res_put_red_aligned);
 
     // calcul des erreurs 
-    std::vector<double> err_call(N + 1), err_put(N + 1);
+    std::vector<double> err_call(N + 1);
+    std::vector<double> err_put(N + 1);
     for (int i = 0; i <= N; ++i) {
         err_call[i] = std::abs(res_call_comp[i] - res_call_red_aligned[i]);
         err_put[i] = std::abs(res_put_comp[i] - res_put_red_aligned[i]);

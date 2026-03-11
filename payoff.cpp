@@ -58,7 +58,7 @@ double Call::boundary_condition_low(double /*L*/, double /*t*/) const {
  * @return Valeur de la condition aux limites haute S=L
  */
 double Call::boundary_condition_high(double L, double t) const { 
-    return L - K_ * std::exp(-r_ * (t -T_));
+    return L - K_ * std::exp(-r_ * (T_-t));
 }
 
 /**

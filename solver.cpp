@@ -203,49 +203,60 @@ void Implicite_solver::reverse_variable() {
 /** @brief Méthode de résolution de l'équation de Black-Scholes avec méthode implicite 
 */
 void Implicite_solver::solve() {
-    double r =edp_.getR();
-    double sigma2=edp_.getSigma() * edp_.getSigma();
-    //changement de variables pour l'EDP réduite
+    double r = edp_.getR();
+    double sigma2 = edp_.getSigma() * edp_.getSigma();
+    double T = edp_.getT();
+
+    // 1. Passage en log-cours (x = ln(S))
     change_variable();
-    //pour l'EDP réduite (équation de la chaleur : u_t = 0.5 * sigma^2 * u_xx)
+
+    // Paramètre de diffusion pour le schéma implicite
+    // Équation de la chaleur : u_t = 0.5 * sigma^2 * u_xx
     double lambda = (sigma2 * dt_) / (2.0 * dS_ * dS_);
 
-    double drift = r - 0.5 * sigma2;
-    double x_max = std::log(edp_.getL()) + drift * edp_.getT();
-
-    //initialisation Payoff à l'instant t=0  et s=exp(s) car changement de variable 
+    // 2. Initialisation du Payoff à l'instant tau = 0 (t = T)
     for (int i = 0; i <= N_; ++i) {
         v_[0][i] = edp_.getOption()->payoff(std::exp(S_[i]));
     }
-    
-    std::vector<double> a(N_ - 1, -lambda);  //diagonale inférieure
-    std::vector<double> b(N_ - 1, 1 + 2 * lambda); //diagonale principale
-    std::vector<double> c(N_ - 1, -lambda); //diagonale supérieure
 
+    // 3. Préparation de la matrice tridiagonale (fixe pour tout le temps)
+    int n_inner = N_ - 1; // Taille du système interne
+    std::vector<double> a(n_inner, -lambda);      // Diagonale inf
+    std::vector<double> b(n_inner, 1 + 2 * lambda); // Diagonale principale
+    std::vector<double> c(n_inner, -lambda);      // Diagonale sup
+
+    // 4. Boucle temporelle (on avance de j-1 vers j)
     for (int j = 1; j <= M_; ++j) {
+        std::vector<double> d(n_inner);
 
-        std::vector<double> d(N_ - 1); //membre de droite
-
-        
-        double real_t_ = edp_.getT() - t_[j];
-
-        // Conditions aux bords après changement de variable (voir 2.4.2 du rapport)
-        v_[j][0] = edp_.getOption()->boundary_condition_low(x_max, real_t_) * std::exp(r * t_[j]); 
-        v_[j][N_] = edp_.getOption()->boundary_condition_high(x_max, real_t_) * std::exp(r * t_[j]);
-
-        d[0] +=  lambda * v_[j][0]; //ajout de la condition à la frontière basse
-        d[N_-2] += lambda * v_[j][N_];  //ajout de la condition à la frontière haute
-
-        for (int i = 1; i < N_-2; ++i) {
-            d[i] = v_[j][i]; //membre de droite=prix à l'instant j
+        // --- Construction du membre de droite (RHS) ---
+        // On utilise les valeurs calculées à l'instant précédent (j-1)
+        for (int i = 0; i < n_inner; ++i) {
+            d[i] = v_[j - 1][i + 1]; 
         }
 
-        //résolution du système tridiagonal
+        // --- Conditions aux limites à l'instant PRÉSENT (j) ---
+        double current_tau = j * dt_;
+        double real_t = T - current_tau; // Temps réel (descend de T à 0)
+
+        // Note : On passe le prix S réel aux fonctions de bord
+        v_[j][0] = edp_.getOption()->boundary_condition_low(0.0, real_t) * std::exp(r * current_tau);
+        v_[j][N_] = edp_.getOption()->boundary_condition_high(edp_.getL(), real_t) * std::exp(r * current_tau);
+
+        // --- Injection des bords dans le système tridiagonal ---
+        d[0] += lambda * v_[j][0];             // Bord inférieur (i=1 utilise i=0)
+        d[n_inner - 1] += lambda * v_[j][N_];  // Bord supérieur (i=N-1 utilise i=N)
+
+        // 5. Résolution du système Ax = d
         std::vector<double> sol = thomas_algorithm(a, b, c, d);
+
+        // Stockage des résultats pour les points internes
         for (int i = 1; i < N_; ++i) {
             v_[j][i] = sol[i - 1];
         }
     }
+
+    // 6. Retour aux variables réelles (V et S)
     reverse_variable();
 }
 
